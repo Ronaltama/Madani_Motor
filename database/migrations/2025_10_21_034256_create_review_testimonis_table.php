@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id('id_admin');
-    $table->string('nama');
-    $table->string('email')->unique();
-    $table->string('password');
+Schema::create('review_testimonis', function (Blueprint $table) {
+    $table->id('id_review');
+    $table->string('nama_pelanggan');
+    $table->date('tanggal')->nullable();
+    $table->text('isi_review');
+    $table->integer('rating')->default(0);
+    $table->string('foto_url')->nullable();
     $table->timestamps();
 });
-
 
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('review_testimonis');
     }
 };
