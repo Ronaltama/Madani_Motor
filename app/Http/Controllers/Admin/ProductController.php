@@ -4,62 +4,75 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Mobil;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $mobils = Mobil::orderBy('id_mobil', 'desc')->paginate(10);
+        return Inertia::render('Admin/Products/Index', [
+            'mobils' => $mobils
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Products/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
+{
+    try {
+        $validated = $request->validate([
+            'nama_mobil' => 'required|string|max:255',
+            'merek' => 'required|string|max:255',
+            'varian' => 'nullable|string|max:255',
+            'tipe_penjual' => 'required|string',
+            'tahun' => 'required|integer',
+            'kondisi' => 'required|string',
+            'deskripsi' => 'nullable|string',
+            'harga' => 'required|numeric'
+        ]);
+
+        $mobil = Mobil::create($validated);
+
+        return redirect()->route('admin.products.index')
+            ->with('success', 'Data mobil berhasil ditambahkan');
+    
+        } catch (\Exception $e) {
+        
+        return redirect()->back()
+            ->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])
+            ->withInput();
+    }
+}
+
+    public function update(Request $request, Mobil $mobil)  // Changed from $product to $mobil
     {
-        //
+        $validated = $request->validate([
+            'nama_mobil' => 'required|string|max:255',
+            'merek' => 'required|string|max:255',
+            'varian' => 'nullable|string|max:255',
+            'tipe_penjual' => 'required|string',
+            'tahun' => 'required|integer',
+            'kondisi' => 'required|string',
+            'deskripsi' => 'nullable|string',
+            'harga' => 'required|numeric'
+        ]);
+
+        $mobil->update($validated);
+
+        return redirect()->route('admin.products.index')
+            ->with('success', 'Data mobil berhasil diperbarui');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function destroy(Mobil $mobil)  // Changed from $product to $mobil
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $mobil->delete();
+        
+        return redirect()->route('admin.products.index')
+            ->with('success', 'Data mobil berhasil dihapus');
     }
 }
