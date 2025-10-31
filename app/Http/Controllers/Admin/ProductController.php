@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
         $mobils = Mobil::orderBy('id_mobil', 'desc')->paginate(10);
         return Inertia::render('Admin/Products/Index', [
-            'mobils' => $mobils
+        'mobils' => $mobils
         ]);
     }
 
