@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mobil;
+use App\Models\ReviewTestimoni;
+use App\Models\LogAktivitas;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as AuthFacade;
 use Inertia\Inertia;
@@ -11,33 +14,25 @@ use Inertia\Inertia;
 class DashboardController extends Controller
 {
     /**
-     * Display admin dashboard
+     * Display admin dashboard (cards + quick actions)
      */
     public function index()
     {
-        // Get data mobil dari database dengan relasi spesifikasi
-        $products = Mobil::with(['spesifikasi'])
-            ->orderBy('created_at', 'desc')
-            ->get()
-            ->map(function ($mobil) {
-                // Generate status dinamis berdasarkan data
-                $statuses = ['Completed', 'Processing', 'On Hold', 'In Transit', 'Rejected'];
-                $randomStatus = $statuses[array_rand($statuses)];
+        $stats = [
+            'totalProduk'   => Mobil::count(),
+            'totalReview'   => ReviewTestimoni::count(),
+            'totalAktivitas'=> LogAktivitas::count(),
+            'totalAdmin'    => User::count(),
+        ];
 
-                return [
-                    'id' => str_pad($mobil->id_mobil, 5, '0', STR_PAD_LEFT),
-                    'merek' => $mobil->merek . ' ' . $mobil->nama_mobil,
-                    'klien' => 'Customer ' . $mobil->id_mobil, // Nanti bisa diganti dengan data customer real
-                    'masa_berlaku' => $mobil->spesifikasi
-                        ? date('d M Y', strtotime($mobil->spesifikasi->masa_berlaku)) . ' - ' . date('d M Y', strtotime($mobil->spesifikasi->masa_berlaku . ' +4 years'))
-                        : 'N/A',
-                    'status' => $randomStatus
-                ];
-            });
+        $aktivitasTerbaru = LogAktivitas::orderByDesc('created_at')
+            ->take(5)
+            ->get(['id_log','aktivitas','created_at']);
 
         return Inertia::render('Admin/Dashboard', [
             'user' => AuthFacade::user(),
-            'products' => $products
+            'stats' => $stats,
+            'aktivitasTerbaru' => $aktivitasTerbaru,
         ]);
     }
 }

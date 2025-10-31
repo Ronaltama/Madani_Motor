@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Admin\LogAktivitasController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Auth\AuthController;
 
 // ==========================
@@ -38,7 +40,6 @@ Route::middleware(['auth'])
         
         // Manajemen Produk
         Route::resource('products', ProductController::class)
-            ->except(['show'])
             ->parameters(['products' => 'mobil']);
         
         // Manajemen Review/Ulasan

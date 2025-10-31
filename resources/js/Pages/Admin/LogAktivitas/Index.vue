@@ -18,9 +18,9 @@
                     <tbody class="divide-y">
                         <tr v-for="log in logs.data" :key="log.id" class="hover:bg-gray-50">
                             <td class="px-6 py-4">{{ log.id }}</td>
-                            <td class="px-6 py-4">{{ log.admin?.name }}</td>
+                            <td class="px-6 py-4">{{ log.admin?.nama }}</td>
                             <td class="px-6 py-4">{{ log.admin?.email }}</td>
-                            <td class="px-6 py-4">{{ formatDate(log.created_at) }}</td>
+                            <td class="px-6 py-4">{{ formatDate(log.created_at || log.tanggal) }}</td>
                             <td class="px-6 py-4">
                                 <div class="flex space-x-2">
                                     <button class="text-red-600 hover:text-red-700">
@@ -32,13 +32,8 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4">
-                                <span class="px-3 py-1 rounded-full text-sm"
-                                    :class="{
-                                        'bg-green-100 text-green-800': log.type === 'success',
-                                        'bg-blue-100 text-blue-800': log.type === 'info',
-                                        'bg-red-100 text-red-800': log.type === 'error'
-                                    }">
-                                    {{ log.activity }}
+                                <span class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-800">
+                                    {{ log.aktivitas || log.activity }}
                                 </span>
                             </td>
                         </tr>
@@ -51,16 +46,23 @@
                         Showing {{ logs.from }}-{{ logs.to }} of {{ logs.total }}
                     </span>
                     <div class="flex space-x-2">
-                        <Link v-for="link in logs.links"
-                            :key="link.label"
-                            :href="link.url"
-                            class="px-3 py-1 border rounded"
-                            :class="{
-                                'bg-blue-600 text-white': link.active,
-                                'text-gray-600 hover:bg-gray-100': !link.active
-                            }"
-                            v-html="link.label"
-                        />
+                        <template v-for="link in logs.links" :key="link.label + (link.url || '')">
+                            <Link
+                                v-if="link.url"
+                                :href="link.url"
+                                class="px-3 py-1 border rounded"
+                                :class="{
+                                    'bg-blue-600 text-white': link.active,
+                                    'text-gray-600 hover:bg-gray-100': !link.active
+                                }"
+                                v-html="link.label"
+                            />
+                            <span
+                                v-else
+                                class="px-3 py-1 border rounded text-gray-400 select-none"
+                                v-html="link.label"
+                            />
+                        </template>
                     </div>
                 </div>
             </div>

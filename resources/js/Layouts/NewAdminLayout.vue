@@ -33,8 +33,8 @@
                         :href="item.href"
                         :class="[
                             'flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors',
-                            route().current(item.route) 
-                                ? 'bg-blue-100 text-blue-600' 
+                            $page.url.startsWith(item.startsWith)
+                                ? 'bg-blue-100 text-blue-600'
                                 : 'text-gray-700 hover:bg-gray-50'
                         ]"
                     >
@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { Link } from '@inertiajs/vue3'
+import { Link, router } from '@inertiajs/vue3'
 import { 
     HomeIcon,
     ClipboardDocumentIcon,
@@ -85,13 +85,13 @@ import {
 } from '@heroicons/vue/24/outline'
 
 const navigation = [
-    { name: 'Dashboard', href: route('admin.dashboard'), icon: HomeIcon, route: 'admin.dashboard' },
-    { name: 'Log Aktivitas', href: route('admin.logs'), icon: ClipboardDocumentIcon, route: 'admin.logs' },
-    { name: 'Manajemen Produk', href: route('admin.products.index'), icon: ShoppingCartIcon, route: 'admin.products.*' },
-    { name: 'Manajemen Ulasan', href: route('admin.reviews.index'), icon: ChatBubbleLeftIcon, route: 'admin.reviews.*' },
+    { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon, startsWith: '/admin/dashboard' },
+    { name: 'Log Aktivitas', href: '/admin/log-aktivitas', icon: ClipboardDocumentIcon, startsWith: '/admin/log-aktivitas' },
+    { name: 'Manajemen Produk', href: '/admin/products', icon: ShoppingCartIcon, startsWith: '/admin/products' },
+    { name: 'Manajemen Ulasan', href: '/admin/reviews', icon: ChatBubbleLeftIcon, startsWith: '/admin/reviews' },
 ]
 
 function logout() {
-    // Implement logout
+    router.post('/logout')
 }
 </script>

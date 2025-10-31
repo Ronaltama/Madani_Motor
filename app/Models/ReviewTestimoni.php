@@ -12,11 +12,16 @@ use HasFactory;
 protected $table = 'review_testimonis';
 protected $primaryKey = 'id_review';
 protected $fillable = [
-'nama_pelanggan', 'tanggal', 'isi_review', 'rating', 'foto_url'
+	'id_mobil', 'nama_pelanggan', 'tanggal', 'isi_review', 'rating', 'foto_url'
 ];
 
 public function logs()
 {
 return $this->hasMany(LogAktivitas::class, 'id_review');
+}
+
+public function mobil()
+{
+	return $this->belongsTo(Mobil::class, 'id_mobil', 'id_mobil');
 }
 }
