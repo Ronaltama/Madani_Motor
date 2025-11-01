@@ -27,7 +27,7 @@
                 <nav class="space-y-2">
                     <a
                         href="/admin/dashboard"
-                        class="flex items-center px-4 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-200"
+                        class="flex items-center px-4 py-3 text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition duration-200"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@
                     </a>
 
                     <a
-                        href="/admin/users"
+                        href="/admin/log-aktivitas"
                         class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100 transition duration-200"
                     >
                         <svg
@@ -57,19 +57,14 @@
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                            />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M9 8h6M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z" />
                         </svg>
-                        <span>Manajemen User</span>
+                        <span>Log Aktivitas</span>
                     </a>
 
                     <a
                         href="/admin/products"
-                        class="flex items-center px-4 py-3 text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition duration-200"
+                        class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-100 transition duration-200"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -222,187 +217,100 @@
 
             <!-- Page Content -->
             <main class="p-8">
-                <h1 class="text-3xl font-bold text-gray-800 mb-8">
-                    Manajemen Produk
-                </h1>
+                <h1 class="text-2xl font-bold text-gray-800">Dashboard Admin</h1>
+                <p class="text-gray-600 mt-1 mb-6">Selamat datang di panel Madani Motor</p>
 
-                <!-- Table -->
-                <div class="bg-white rounded-lg shadow">
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="bg-gray-50 border-b border-gray-200">
-                                <tr>
-                                    <th
-                                        class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                                    >
-                                        ID
-                                    </th>
-                                    <th
-                                        class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                                    >
-                                        MEREK
-                                    </th>
-                                    <th
-                                        class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                                    >
-                                        NAMA KLIEN
-                                    </th>
-                                    <th
-                                        class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                                    >
-                                        MASA BERLAKU
-                                    </th>
-                                    <th
-                                        class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                                    >
-                                        ACTION
-                                    </th>
-                                    <th
-                                        class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                                    >
-                                        STATUS
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                <tr
-                                    v-for="product in products"
-                                    :key="product.id"
-                                    class="hover:bg-gray-50 transition duration-150"
-                                >
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                                    >
-                                        {{ product.id }}
-                                    </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                                    >
-                                        {{ product.merek }}
-                                    </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                                    >
-                                        {{ product.klien }}
-                                    </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-600"
-                                    >
-                                        {{ product.masa_berlaku }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div
-                                            class="flex items-center space-x-2"
-                                        >
-                                            <button
-                                                class="p-2 text-red-600 hover:bg-red-50 rounded-full transition duration-200"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="h-5 w-5"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke="currentColor"
-                                                >
-                                                    <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M6 18L18 6M6 6l12 12"
-                                                    />
-                                                </svg>
-                                            </button>
-                                            <button
-                                                class="p-2 text-green-600 hover:bg-green-50 rounded-full transition duration-200"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    class="h-5 w-5"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke="currentColor"
-                                                >
-                                                    <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M5 13l4 4L19 7"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
-                                            :class="{
-                                                'bg-green-100 text-green-800':
-                                                    product.status ===
-                                                    'Completed',
-                                                'bg-purple-100 text-purple-800':
-                                                    product.status ===
-                                                    'Processing',
-                                                'bg-red-100 text-red-800':
-                                                    product.status ===
-                                                    'Rejected',
-                                                'bg-yellow-100 text-yellow-800':
-                                                    product.status ===
-                                                    'On Hold',
-                                                'bg-blue-100 text-blue-800':
-                                                    product.status ===
-                                                    'In Transit',
-                                            }"
-                                        >
-                                            {{ product.status }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <p class="text-gray-600 text-sm">Total produk</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <p class="text-2xl font-bold">{{ stats.totalProduk }}</p>
+                            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v2H3V3zm2 5h14v13H5V8zm4 3v2h6v-2H9z"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Semua produk</p>
                     </div>
 
-                    <!-- Pagination -->
-                    <div
-                        class="px-6 py-4 border-t border-gray-200 flex items-center justify-between"
-                    >
-                        <p class="text-sm text-gray-600">Showing 1-01 of 3</p>
-                        <div class="flex space-x-2">
-                            <button
-                                class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition duration-200"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="h-5 w-5"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M15 19l-7-7 7-7"
-                                    />
-                                </svg>
-                            </button>
-                            <button
-                                class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition duration-200"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="h-5 w-5"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M9 5l7 7-7 7"
-                                    />
-                                </svg>
-                            </button>
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <p class="text-gray-600 text-sm">Review</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <p class="text-2xl font-bold">{{ stats.totalReview }}</p>
+                            <div class="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Siap direview</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <p class="text-gray-600 text-sm">Log aktivitas</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <p class="text-2xl font-bold">{{ stats.totalAktivitas }}</p>
+                            <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 7v5l3 3 1.5-1.5-2.5-2.5V7h-2z"/><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm0-18C7.59 4 4 7.59 4 12s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8z"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Aktivitas terbaru</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <p class="text-gray-600 text-sm">Admin</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <p class="text-2xl font-bold">{{ stats.totalAdmin }}</p>
+                            <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Admin</p>
+                    </div>
+                </div>
+
+                <!-- Quick Action -->
+                <div class="bg-white rounded-lg shadow p-5 mb-6">
+                    <h3 class="font-semibold mb-3">Quick Action</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <a href="/admin/products/create" class="flex items-center bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-3">
+                            <span class="inline-flex items-center justify-center w-8 h-8 bg-blue-700 rounded mr-3">+
+                            </span>
+                            <div>
+                                <p class="font-medium">Tambah Produk Baru</p>
+                                <p class="text-xs text-blue-100">Input produk baru</p>
+                            </div>
+                        </a>
+                        <a href="/admin/reviews" class="flex items-center bg-amber-500 hover:bg-amber-600 text-white rounded-lg px-4 py-3">
+                            <span class="inline-flex items-center justify-center w-8 h-8 bg-amber-600 rounded mr-3">★</span>
+                            <div>
+                                <p class="font-medium">Kelola review</p>
+                                <p class="text-xs text-amber-100">Mengecek review</p>
+                            </div>
+                        </a>
+                        <a href="/admin/log-aktivitas" class="flex items-center bg-green-500 hover:bg-green-600 text-white rounded-lg px-4 py-3">
+                            <span class="inline-flex items-center justify-center w-8 h-8 bg-green-600 rounded mr-3">☑</span>
+                            <div>
+                                <p class="font-medium">Lihat Log Aktivitas</p>
+                                <p class="text-xs text-green-100">Melihat aktivitas terbaru</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Aktivitas Terbaru -->
+                <div class="bg-white rounded-lg shadow p-5">
+                    <h3 class="font-semibold mb-3">Aktivitas terbaru</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center bg-blue-50 rounded px-3 py-2">
+                            <span class="text-sm">Sistem siap digunakan</span>
+                            <span class="ml-auto text-xs text-gray-500">Hari ini</span>
+                        </div>
+                        <div class="flex items-center bg-blue-50 rounded px-3 py-2">
+                            <span class="text-sm">{{ stats.totalProduk }} produk di inventory</span>
+                            <span class="ml-auto text-xs text-gray-500">Hari ini</span>
+                        </div>
+                        <div v-for="item in aktivitasTerbaru" :key="item.id_log" class="flex items-center bg-gray-50 rounded px-3 py-2">
+                            <span class="text-sm truncate">{{ item.aktivitas }}</span>
+                            <span class="ml-auto text-xs text-gray-500">{{ new Date(item.created_at).toLocaleDateString('id-ID') }}</span>
                         </div>
                     </div>
                 </div>
@@ -416,14 +324,9 @@ import { computed } from "vue";
 import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
-    user: {
-        type: Object,
-        required: true,
-    },
-    products: {
-        type: Array,
-        default: () => [],
-    },
+    user: { type: Object, required: true },
+    stats: { type: Object, required: true },
+    aktivitasTerbaru: { type: Array, default: () => [] },
 });
 
 const user = computed(() => ({
@@ -436,7 +339,5 @@ const user = computed(() => ({
         .slice(0, 2),
 }));
 
-const logout = () => {
-    router.post("/logout");
-};
+const logout = () => router.post("/logout");
 </script>
