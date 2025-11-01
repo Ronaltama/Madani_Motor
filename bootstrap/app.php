@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
     $middleware->web(append: [
         HandleInertiaRequests::class,
     ]);
+
+    $middleware->alias([
+            'is.admin' => \App\Http\Middleware\IsAdmin::class,
+        ]);
 })
 
     ->withExceptions(function (Exceptions $exceptions): void {
