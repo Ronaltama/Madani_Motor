@@ -23,7 +23,12 @@ return $this->hasOne(SpesifikasiMobil::class, 'id_mobil');
 
 public function foto()
 {
-return $this->hasOne(FotoMobil::class, 'id_mobil');
+return $this->hasMany(FotoMobil::class, 'id_mobil');
+}
+
+public function reviews()
+{
+return $this->hasMany(ReviewTestimoni::class, 'id_mobil');
 }
 
 public function logs()

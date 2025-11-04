@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ReviewTestimoni;
 use App\Models\LogAktivitas;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Mobil;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ReviewController extends Controller
@@ -17,55 +17,12 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $total = ReviewTestimoni::count();
-
-        // Ambil merek unik dari tabel mobils
-        $brands = Mobil::query()->select('merek')->distinct()->pluck('merek');
-
-        // Kelompokkan MOBIL per merek, sertakan ulasan terbaru per mobil (agar mobil baru tetap muncul walau belum ada ulasan)
-        $groups = [];
-        foreach ($brands as $brand) {
-            $mobils = Mobil::where('merek', $brand)
-                ->orderBy('nama_mobil')
-                ->get();
-
-            $mobilsPayload = $mobils->map(function ($m) {
-                $latestReviews = ReviewTestimoni::where('id_mobil', $m->id_mobil)
-                    ->latest()
-                    ->take(3)
-                    ->get(['id_review','id_mobil','nama_pelanggan','tanggal','isi_review','rating','foto_url'])
-                    ->map(function ($r) {
-                        return [
-                            'id_review' => $r->id_review,
-                            'nama_pelanggan' => $r->nama_pelanggan,
-                            'tanggal' => $r->tanggal,
-                            'isi_review' => $r->isi_review,
-                            'rating' => $r->rating,
-                            'foto_url' => $r->foto_url,
-                        ];
-                    });
-
-                return [
-                    'id_mobil' => $m->id_mobil,
-                    'nama_mobil' => $m->nama_mobil,
-                    'merek' => $m->merek,
-                    'reviews' => $latestReviews,
-                ];
-            });
-
-            $groups[] = [
-                'merek' => $brand,
-                'mobils' => $mobilsPayload,
-            ];
-        }
-
-        // List mobil untuk form (opsional grouping di frontend)
-        $mobils = Mobil::orderBy('merek')->orderBy('nama_mobil')->get(['id_mobil','merek','nama_mobil']);
+        $reviews = ReviewTestimoni::with('mobil')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return Inertia::render('Admin/Reviews/Index', [
-            'total' => $total,
-            'groups' => $groups,
-            'mobils' => $mobils,
+            'reviews' => $reviews
         ]);
     }
 
@@ -74,7 +31,11 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+        $mobils = \App\Models\Mobil::orderBy('merek')->orderBy('nama_mobil')->get();
+
+        return Inertia::render('Admin/Reviews/Create', [
+            'mobils' => $mobils
+        ]);
     }
 
     /**
@@ -88,7 +49,16 @@ class ReviewController extends Controller
             'tanggal' => 'nullable|date',
             'isi_review' => 'required|string',
             'rating' => 'required|integer|min:1|max:5',
+            'foto_url' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        // Handle foto upload jika ada
+        if ($request->hasFile('foto_url')) {
+            $file = $request->file('foto_url');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/reviews'), $filename);
+            $validated['foto_url'] = '/images/reviews/' . $filename;
+        }
 
         $review = ReviewTestimoni::create($validated);
 
@@ -110,34 +80,79 @@ class ReviewController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(ReviewTestimoni $review)
     {
-        //
+        $mobils = \App\Models\Mobil::orderBy('merek')->orderBy('nama_mobil')->get();
+
+        return Inertia::render('Admin/Reviews/Edit', [
+            'review' => $review,
+            'mobils' => $mobils
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, ReviewTestimoni $review)
     {
-        //
+        $validated = $request->validate([
+            'nama_pelanggan' => 'required|string|max:255',
+            'tanggal' => 'nullable|date',
+            'isi_review' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+            'foto_url' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        // Handle foto upload jika ada
+        if ($request->hasFile('foto_url')) {
+            $file = $request->file('foto_url');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images/reviews'), $filename);
+            $validated['foto_url'] = '/images/reviews/' . $filename;
+        }
+
+        $review->update($validated);
+
+        // log aktivitas (best-effort)
+        try {
+            LogAktivitas::create([
+                'id_admin' => Auth::id(),
+                'id_mobil' => null,
+                'id_review' => $review->id_review ?? null,
+                'aktivitas' => 'Memperbarui ulasan pelanggan: ' . ($review->nama_pelanggan ?? ''),
+                'tanggal' => now()->toDateString(),
+            ]);
+        } catch (\Throwable $th) {
+            // ignore if logging fails
+        }
+
+        return redirect()->route('admin.reviews.index')
+            ->with('success', 'Ulasan berhasil diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ReviewTestimoni $review)
     {
-        //
+        $review->delete();
+
+        // log aktivitas (best-effort)
+        try {
+            LogAktivitas::create([
+                'id_admin' => Auth::id(),
+                'id_mobil' => null,
+                'id_review' => $review->id_review ?? null,
+                'aktivitas' => 'Menghapus ulasan pelanggan: ' . ($review->nama_pelanggan ?? ''),
+                'tanggal' => now()->toDateString(),
+            ]);
+        } catch (\Throwable $th) {
+            // ignore if logging fails
+        }
+
+        return redirect()->route('admin.reviews.index')
+            ->with('success', 'Ulasan berhasil dihapus');
     }
 }

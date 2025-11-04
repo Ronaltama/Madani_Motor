@@ -2,6 +2,8 @@ import "./../css/app.css";
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
+import { createPinia } from "pinia";
+import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 
 createInertiaApp({
     title: (title) => `${title} - Madani Motor`,
@@ -11,11 +13,16 @@ createInertiaApp({
             import.meta.glob("./Pages/**/*.vue")
         ),
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .mount(el);
+        const app = createApp({ render: () => h(App, props) });
+
+        app.use(plugin).use(ZiggyVue).use(createPinia());
+
+        // Make route() globally available
+        app.config.globalProperties.route = window.route;
+
+        return app.mount(el);
     },
     progress: {
-        color: "#4B5563",
+        color: "#BB0102",
     },
 });

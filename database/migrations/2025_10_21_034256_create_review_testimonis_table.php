@@ -13,12 +13,15 @@ return new class extends Migration
     {
 Schema::create('review_testimonis', function (Blueprint $table) {
     $table->id('id_review');
+    $table->unsignedBigInteger('id_mobil')->nullable();
     $table->string('nama_pelanggan');
     $table->date('tanggal')->nullable();
     $table->text('isi_review');
     $table->integer('rating')->default(0);
     $table->string('foto_url')->nullable();
     $table->timestamps();
+
+    $table->foreign('id_mobil')->references('id_mobil')->on('mobils')->onDelete('cascade');
 });
 
     }

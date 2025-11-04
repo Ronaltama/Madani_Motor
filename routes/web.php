@@ -7,11 +7,15 @@ use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Admin\LogAktivitasController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Auth\AuthController;
+use Inertia\Inertia;
 
 // ==========================
 // Public
 // ==========================
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/compare', [HomeController::class, 'compare'])->name('compare');
+Route::get('/cars', [HomeController::class, 'cars'])->name('cars.index');
+Route::get('/cars/{id}', [HomeController::class, 'show'])->name('cars.show');
 
 // ==========================
 // Auth
@@ -34,14 +38,19 @@ Route::middleware(['auth'])
     ->group(function () {
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        
+
         // Log Aktivitas
         Route::get('/log-aktivitas', [LogAktivitasController::class, 'index'])->name('log-aktivitas');
-        
+
         // Manajemen Produk
         Route::resource('products', ProductController::class)
             ->parameters(['products' => 'mobil']);
-        
+
         // Manajemen Review/Ulasan
         Route::resource('reviews', ReviewController::class);
+
+        // Profile
+        Route::get('/profile', function () {
+            return Inertia::render('Admin/Profile');
+        })->name('profile');
     });

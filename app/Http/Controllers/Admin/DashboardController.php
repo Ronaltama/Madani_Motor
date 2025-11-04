@@ -25,14 +25,25 @@ class DashboardController extends Controller
             'totalAdmin'    => User::count(),
         ];
 
-        $aktivitasTerbaru = LogAktivitas::orderByDesc('created_at')
+        $aktivitasTerbaru = LogAktivitas::with('admin')
+            ->orderByDesc('created_at')
             ->take(5)
-            ->get(['id_log','aktivitas','created_at']);
+            ->get();
 
-        return Inertia::render('Admin/Dashboard', [
+        return Inertia::render('Admin/Dashboard/Index', [
             'user' => AuthFacade::user(),
             'stats' => $stats,
             'aktivitasTerbaru' => $aktivitasTerbaru,
+        ]);
+    }
+
+    /**
+     * Display admin profile
+     */
+    public function profile()
+    {
+        return Inertia::render('Admin/Profile', [
+            'user' => AuthFacade::user(),
         ]);
     }
 }

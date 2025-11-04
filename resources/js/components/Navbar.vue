@@ -1,189 +1,282 @@
 <template>
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-3">
-            <div class="flex items-center justify-between">
+    <nav class="bg-white shadow-md fixed w-full top-0 left-0 z-50">
+        <div class="max-w-[1400px] mx-auto px-6 py-4 relative">
+            <div class="flex items-center justify-between gap-6">
                 <!-- Logo -->
-                <div class="flex items-center space-x-2">
-                    <div
-                        class="bg-red-600 text-white px-3 py-1 rounded-md font-bold text-lg"
-                    >
-                        MADANI MOTOR
-                    </div>
+                <div class="flex-shrink-0">
+                    <Link :href="route('home')">
+                        <img
+                            :src="logoUrl"
+                            alt="Madani Motor"
+                            class="w-[147px] h-[41px] object-contain"
+                        />
+                    </Link>
                 </div>
 
                 <!-- Search Bar -->
-                <div class="flex-1 max-w-md mx-8">
-                    <div class="relative">
-                        <input
-                            type="text"
-                            v-model="searchQuery"
-                            placeholder="Search"
-                            class="w-full px-4 py-2 pl-10 pr-4 text-gray-700 bg-gray-100 border-0 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500"
-                        />
-                        <svg
-                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
+                <div class="flex-1 max-w-[614px] ml-8 relative z-50">
+                    <div class="relative transition-all duration-300">
+                        <span
+                            class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 z-10"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                            />
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="flex items-center space-x-6">
-                    <Link
-                        href="/"
-                        class="text-gray-700 hover:text-red-600 font-medium transition"
-                    >
-                        Home
-                    </Link>
-                    <Link
-                        href="/jual-mobil"
-                        class="text-gray-700 hover:text-red-600 font-medium transition"
-                    >
-                        Jual Mobil
-                    </Link>
-                    <Link
-                        href="/bandingkan"
-                        class="text-gray-700 hover:text-red-600 font-medium transition"
-                    >
-                        Bandingkan Mobil
-                    </Link>
-
-                    <!-- User Menu -->
-                    <div class="relative">
-                        <button
-                            @click.stop="toggleDropdown"
-                            class="flex items-center space-x-2 focus:outline-none hover:opacity-80 transition"
-                        >
-                            <div
-                                class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center"
-                            >
-                                <svg
-                                    class="w-6 h-6 text-gray-600"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                                    />
-                                </svg>
-                            </div>
                             <svg
-                                class="w-4 h-4 text-gray-600 transition-transform duration-200"
-                                :class="{ 'rotate-180': dropdownOpen }"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-4 w-4"
                                 fill="none"
-                                stroke="currentColor"
                                 viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="2"
                             >
                                 <path
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M19 9l-7 7-7-7"
+                                    d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
+                                />
+                            </svg>
+                        </span>
+
+                        <input
+                            type="text"
+                            v-model="searchQuery"
+                            @focus="isFocused = true"
+                            @blur="isFocused = false"
+                            @keyup.enter="handleSearch"
+                            :placeholder="
+                                isFocused ? 'Ketik kata kunci dan enter' : ''
+                            "
+                            class="w-full pl-11 pr-4 py-3 rounded-full bg-gray-100 text-sm text-gray-600 placeholder-gray-500 focus:outline-none focus:ring-2 transition-all duration-300 font-semibold"
+                            :class="
+                                isFocused
+                                    ? 'focus:ring-white bg-white'
+                                    : 'focus:ring-red-500'
+                            "
+                        />
+
+                        <transition name="slide-text" mode="out-in">
+                            <span
+                                v-if="!isFocused && searchQuery.length === 0"
+                                :key="currentPlaceholder"
+                                class="absolute left-11 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-semibold select-none pointer-events-none"
+                            >
+                                {{ currentPlaceholder }}
+                            </span>
+                        </transition>
+                    </div>
+                </div>
+
+                <!-- Menu -->
+                <div class="flex items-center gap-2 ml-12">
+                    <Link
+                        :href="route('home')"
+                        class="px-5 py-2 text-gray-800 hover:bg-gray-100 rounded-full font-semibold text-[15px] transition-colors"
+                    >
+                        Home
+                    </Link>
+                    <a
+                        href="https://wa.me/6298616498342?text=Halo,%20saya%20ingin%20jual%20mobil"
+                        target="_blank"
+                        class="px-5 py-2 text-gray-800 hover:bg-gray-100 rounded-full font-semibold text-[15px] transition-colors"
+                    >
+                        Jual Mobil
+                    </a>
+                    <Link
+                        :href="route('compare')"
+                        class="px-5 py-2 text-gray-800 hover:bg-gray-100 rounded-full font-semibold text-[15px] transition-colors"
+                    >
+                        Bandingkan Mobil
+                    </Link>
+
+                    <div class="h-6 w-px bg-gray-300 mx-3"></div>
+
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button
+                            @click="toggleProfileDropdown"
+                            class="p-2 text-gray-800 hover:bg-gray-100 rounded-full transition-colors"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-8 w-8"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
                                 />
                             </svg>
                         </button>
 
                         <!-- Dropdown Menu -->
-                        <Transition
-                            enter-active-class="transition ease-out duration-100"
-                            enter-from-class="transform opacity-0 scale-95"
-                            enter-to-class="transform opacity-100 scale-100"
-                            leave-active-class="transition ease-in duration-75"
-                            leave-from-class="transform opacity-100 scale-100"
-                            leave-to-class="transform opacity-0 scale-95"
-                        >
+                        <transition name="dropdown-fade">
                             <div
-                                v-show="dropdownOpen"
-                                class="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-xl py-2 border border-gray-100 z-50"
+                                v-if="showProfileDropdown"
+                                class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border border-gray-200 py-2 z-50"
                             >
                                 <Link
-                                    href="/login"
-                                    @click="dropdownOpen = false"
-                                    class="block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-150"
+                                    :href="route('login')"
+                                    class="flex items-center px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors"
+                                    @click="showProfileDropdown = false"
                                 >
-                                    <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-3"
+                                    >
                                         <svg
-                                            class="w-5 h-5"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="h-5 w-5 text-red-600"
                                             fill="none"
-                                            stroke="currentColor"
                                             viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
                                         >
                                             <path
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                             />
                                         </svg>
-                                        <span class="font-medium"
-                                            >Login as Admin</span
-                                        >
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-sm">
+                                            Login as Admin
+                                        </div>
+                                        <div class="text-xs text-gray-500">
+                                            Akses dashboard administrator
+                                        </div>
                                     </div>
                                 </Link>
                             </div>
-                        </Transition>
-                    </div>
-
-                    <!-- Indonesia Flag -->
-                    <div class="flex items-center space-x-2 ml-2">
-                        <div class="flex flex-col w-6">
-                            <div class="h-2 bg-red-600 rounded-t"></div>
-                            <div
-                                class="h-2 bg-white rounded-b border border-gray-300"
-                            ></div>
-                        </div>
-                        <span class="text-sm text-gray-600">Indonesia</span>
+                        </transition>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Overlay -->
+        <transition name="overlay-fade">
+            <div
+                v-if="isFocused"
+                class="fixed inset-0 bg-[rgba(0,0,0,0.2)] transition-opacity duration-300 z-40"
+            ></div>
+        </transition>
     </nav>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
+
+// Logo URL - gunakan path public
+const logoUrl = "/images/logo_hitam.png";
 
 const searchQuery = ref("");
-const dropdownOpen = ref(false);
+const isFocused = ref(false);
+const showProfileDropdown = ref(false);
+const placeholders = [
+    "mau cari apa?",
+    "Beli mobil bekas terbaru",
+    "Jual Mobil",
+];
+const currentIndex = ref(0);
+const currentPlaceholder = ref(placeholders[currentIndex.value]);
 
-const toggleDropdown = () => {
-    dropdownOpen.value = !dropdownOpen.value;
-};
+let intervalId;
 
-const closeDropdown = (event) => {
-    // Close dropdown when clicking outside
-    if (dropdownOpen.value) {
-        dropdownOpen.value = false;
+// Click outside handler
+const handleClickOutside = (event) => {
+    if (!event.target.closest(".relative")) {
+        showProfileDropdown.value = false;
     }
 };
 
 onMounted(() => {
-    // Add click listener to document to close dropdown when clicking outside
-    document.addEventListener("click", closeDropdown);
+    intervalId = setInterval(() => {
+        if (!isFocused.value) {
+            currentIndex.value = (currentIndex.value + 1) % placeholders.length;
+            currentPlaceholder.value = placeholders[currentIndex.value];
+        }
+    }, 2500);
+
+    document.addEventListener("click", handleClickOutside);
 });
 
 onUnmounted(() => {
-    // Clean up event listener
-    document.removeEventListener("click", closeDropdown);
+    clearInterval(intervalId);
+    document.removeEventListener("click", handleClickOutside);
 });
+
+const handleSearch = () => {
+    if (searchQuery.value.trim()) {
+        router.visit(route("cars.index"), {
+            data: { search: searchQuery.value },
+            preserveState: true,
+        });
+    }
+};
+
+const toggleProfileDropdown = () => {
+    showProfileDropdown.value = !showProfileDropdown.value;
+};
 </script>
 
 <style scoped>
-.rotate-180 {
-    transform: rotate(180deg);
+.slide-text-enter-active {
+    animation: slideIn 0.6s ease forwards;
+}
+.slide-text-leave-active {
+    animation: slideOut 0.6s ease forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) rotateX(15deg);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-3px) rotateX(0);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-5px) rotateX(-10deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+}
+
+.overlay-fade-enter-active,
+.overlay-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+.overlay-fade-enter-from,
+.overlay-fade-leave-to {
+    opacity: 0;
+}
+
+.dropdown-fade-enter-active,
+.dropdown-fade-leave-active {
+    transition: all 0.2s ease;
+}
+.dropdown-fade-enter-from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+}
+.dropdown-fade-leave-to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
 }
 </style>

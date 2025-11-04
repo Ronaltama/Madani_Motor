@@ -25,28 +25,28 @@ class DatabaseSeeder extends Seeder
 
         $mobils = [
             [
-                'nama_mobil' => 'Mobil Oke X LQ 2022',
+                'nama_mobil' => 'Toyota Corolla 2022',
                 'merek' => 'Toyota',
                 'varian' => 'Corolla',
                 'tipe_penjual' => 'Dealer',
                 'tahun' => 2022,
                 'kondisi' => 'Bekas',
-                'deskripsi' => 'Mobil dalam kondisi sangat baik',
+                'deskripsi' => 'Mobil dalam kondisi sangat baik, terawat, service rutin',
                 'harga' => 250000000,
             ],
             [
-                'nama_mobil' => 'Mobil Oke X LQ 2022',
+                'nama_mobil' => 'Honda Civic 2022',
                 'merek' => 'Honda',
                 'varian' => 'Civic',
                 'tipe_penjual' => 'Dealer',
                 'tahun' => 2022,
                 'kondisi' => 'Bekas',
-                'deskripsi' => 'Honda Civic 2022',
+                'deskripsi' => 'Honda Civic 2022 kondisi istimewa',
                 'harga' => 280000000,
             ],
         ];
 
-        foreach ($mobils as $mobilData) {
+        foreach ($mobils as $index => $mobilData) {
             $mobil = Mobil::create($mobilData);
 
             SpesifikasiMobil::create([
@@ -55,15 +55,16 @@ class DatabaseSeeder extends Seeder
                 'bahan_bakar' => 'Bensin',
                 'sistem_penggerak' => 'FWD',
                 'transmisi' => 'Automatic',
-                'kilometer' => 30000,
+                'kilometer' => 30000 + ($index * 5000),
                 'plat_asal' => 'Jakarta',
-                'nomor_polisi' => 'B 1234 ABC',
+                'nomor_polisi' => 'B ' . (1234 + $index) . ' ABC',
                 'masa_berlaku' => '2026-12-31',
                 'spare_key' => 'Ada',
                 'toolkit' => 'Lengkap',
-                'warna' => 'Hitam',
+                'warna' => $index === 0 ? 'Hitam' : 'Putih',
             ]);
 
+            // Create FotoMobil record (without photos - will be uploaded manually via admin)
             FotoMobil::create([
                 'id_mobil' => $mobil->id_mobil,
             ]);
