@@ -17,7 +17,11 @@
                             Mobil <span class="text-red-600">*</span>
                         </label>
                         <select
+
                             v-model.number="form.id_mobil"
+
+                            v-model="form.id_mobil"
+
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         >
@@ -70,16 +74,27 @@
                             Rating <span class="text-red-600">*</span>
                         </label>
                         <select
+
                             v-model.number="form.rating"
+
+                            v-model="form.rating"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         >
                             <option value="">Pilih Rating</option>
+
                             <option :value="1">⭐ 1</option>
                             <option :value="2">⭐ 2</option>
                             <option :value="3">⭐ 3</option>
                             <option :value="4">⭐ 4</option>
                             <option :value="5">⭐ 5</option>
+
+                            <option value="1">⭐ 1</option>
+                            <option value="2">⭐ 2</option>
+                            <option value="3">⭐ 3</option>
+                            <option value="4">⭐ 4</option>
+                            <option value="5">⭐ 5</option>
+
                         </select>
                     </div>
 
@@ -190,9 +205,13 @@ function handleFileUpload(event) {
 }
 
 function submit() {
+
     form.post(route("admin.reviews.store"), {
         forceFormData: true,
         preserveScroll: true,
     });
+
+    form.post(route("admin.reviews.store"));
+
 }
 </script>

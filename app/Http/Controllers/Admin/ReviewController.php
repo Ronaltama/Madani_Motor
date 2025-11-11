@@ -89,6 +89,7 @@ class ReviewController extends Controller
         // Load mobil relation to ensure data is available
         $review->load('mobil');
 
+
         return Inertia::render('Admin/Reviews/Edit', [
             'review' => $review,
             'mobils' => $mobils
@@ -101,7 +102,9 @@ class ReviewController extends Controller
     public function update(Request $request, ReviewTestimoni $review)
     {
         $validated = $request->validate([
+
             'id_mobil' => 'required|exists:mobils,id_mobil',
+
             'nama_pelanggan' => 'required|string|max:255',
             'tanggal' => 'nullable|date',
             'isi_review' => 'required|string',
@@ -111,6 +114,7 @@ class ReviewController extends Controller
 
         // Handle foto upload jika ada
         if ($request->hasFile('foto_url')) {
+
             // Hapus foto lama jika ada
             if ($review->foto_url && file_exists(public_path($review->foto_url))) {
                 @unlink(public_path($review->foto_url));
@@ -120,10 +124,12 @@ class ReviewController extends Controller
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('images/reviews'), $filename);
             $validated['foto_url'] = '/images/reviews/' . $filename;
+
         } else {
             // Jika tidak ada upload foto baru, pertahankan foto lama
             // Hapus foto_url dari validated agar tidak di-update ke null
             unset($validated['foto_url']);
+
         }
 
         $review->update($validated);
@@ -150,6 +156,7 @@ class ReviewController extends Controller
      */
     public function destroy(ReviewTestimoni $review)
     {
+
         // Simpan data sebelum dihapus untuk log
         $namaPelanggan = $review->nama_pelanggan;
         $idReview = $review->id_review;
@@ -160,6 +167,7 @@ class ReviewController extends Controller
         }
 
         // Hapus review
+
         $review->delete();
 
         // log aktivitas (best-effort)
@@ -167,8 +175,12 @@ class ReviewController extends Controller
             LogAktivitas::create([
                 'id_admin' => Auth::id(),
                 'id_mobil' => null,
+
                 'id_review' => null, // Set null karena review sudah dihapus
                 'aktivitas' => 'Menghapus ulasan pelanggan: ' . $namaPelanggan,
+
+                'id_review' => $review->id_review ?? null,
+                'aktivitas' => 'Menghapus ulasan pelanggan: ' . ($review->nama_pelanggan ?? ''),
                 'tanggal' => now()->toDateString(),
             ]);
         } catch (\Throwable $th) {

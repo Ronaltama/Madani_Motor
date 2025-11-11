@@ -1,4 +1,4 @@
-﻿<template>
+<template>
     <Head title="Edit Produk" />
     <AdminLayout>
         <div class="max-w-4xl mx-auto space-y-6">
@@ -96,6 +96,7 @@
                 </div>
                 <div class="border-t pt-6">
                     <h3 class="text-lg font-semibold mb-4">Upload Foto Mobil</h3>
+
                     
                     <!-- Full Body Photo -->
                     <div class="mb-6">
@@ -107,9 +108,10 @@
                         </label>
                         <p v-if="form.full_body" class="text-xs text-gray-600 mt-1">{{ form.full_body.name }}</p>
                     </div>
-
                     <!-- Four Main Photos -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Foto Depan</label>
                             <img v-if="mobil.foto && mobil.foto[0]?.foto_depan" :src="`/storage/mobils/${mobil.foto[0].foto_depan}`" class="w-32 h-20 object-cover rounded mb-2" />
@@ -147,6 +149,7 @@
                             <p v-if="form.foto_kanan" class="text-xs text-gray-600 mt-1">{{ form.foto_kanan.name }}</p>
                         </div>
                     </div>
+
 
                     <!-- Four Additional Photos -->
                     <div>
@@ -209,6 +212,8 @@ const form = useForm({
     spare_key: props.mobil.spesifikasi?.spare_key || '', nomor_polisi: props.mobil.spesifikasi?.nomor_polisi || '', toolkit: props.mobil.spesifikasi?.toolkit || '', 
     full_body: null, foto_depan: null, foto_belakang: null, foto_kiri: null, foto_kanan: null,
     tambahan1: null, tambahan2: null, tambahan3: null, tambahan4: null,
+    spare_key: props.mobil.spesifikasi?.spare_key || '', nomor_polisi: props.mobil.spesifikasi?.nomor_polisi || '', toolkit: props.mobil.spesifikasi?.toolkit || '', foto_depan: null, foto_belakang: null, foto_kiri: null, foto_kanan: null,
+
 });
 function handleFileUpload(event, field) { const file = event.target.files[0]; if (file) form[field] = file; }
 function submit() { form.post(route('admin.products.update', props.mobil.id_mobil), { forceFormData: true, _method: 'PUT' }); }

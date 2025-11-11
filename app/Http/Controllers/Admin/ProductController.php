@@ -24,6 +24,7 @@ class ProductController extends Controller
                     ->orWhere('merek', 'like', '%' . $search . '%')
                     ->orWhere('varian', 'like', '%' . $search . '%')
                     ->orWhere('id_mobil', 'like', '%' . $search . '%');
+                    ->orWhere('varian', 'like', '%' . $search . '%');
             })
             ->orderBy('id_mobil', 'desc')
             ->paginate(10)

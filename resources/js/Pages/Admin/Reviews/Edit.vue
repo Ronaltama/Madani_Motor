@@ -17,7 +17,11 @@
                             Mobil <span class="text-red-600">*</span>
                         </label>
                         <select
+
                             v-model.number="form.id_mobil"
+
+                            v-model="form.id_mobil"
+
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         >
@@ -31,10 +35,13 @@
                                 {{ mobil.varian }}
                             </option>
                         </select>
+
                         <p v-if="selectedMobilInfo" class="text-sm text-gray-600 mt-2">
                             <strong>Jenis Mobil:</strong> {{ selectedMobilInfo.merek }} | 
                             <strong>Nama Mobil:</strong> {{ selectedMobilInfo.nama_mobil }}
                         </p>
+
+
                     </div>
 
                     <!-- Nama Pelanggan -->
@@ -74,16 +81,28 @@
                             Rating <span class="text-red-600">*</span>
                         </label>
                         <select
+
                             v-model.number="form.rating"
+
+                            v-model="form.rating"
+
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         >
                             <option value="">Pilih Rating</option>
+
                             <option :value="1">⭐ 1</option>
                             <option :value="2">⭐ 2</option>
                             <option :value="3">⭐ 3</option>
                             <option :value="4">⭐ 4</option>
                             <option :value="5">⭐ 5</option>
+
+                            <option value="1">⭐ 1</option>
+                            <option value="2">⭐ 2</option>
+                            <option value="3">⭐ 3</option>
+                            <option value="4">⭐ 4</option>
+                            <option value="5">⭐ 5</option>
+
                         </select>
                     </div>
 
@@ -186,7 +205,11 @@
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
+
 import { ref, computed, watch } from "vue";
+
+import { ref } from "vue";
+
 
 const props = defineProps({
     review: {
@@ -206,10 +229,16 @@ const form = useForm({
     tanggal: props.review.tanggal || '',
     rating: props.review.rating || '',
     isi_review: props.review.isi_review || '',
+    id_mobil: props.review.id_mobil,
+    nama_pelanggan: props.review.nama_pelanggan,
+    tanggal: props.review.tanggal,
+    rating: props.review.rating,
+    isi_review: props.review.isi_review,
     foto_url: null,
 });
 
 const fileInput = ref(null);
+
 
 // Computed property to get selected mobil info
 const selectedMobilInfo = computed(() => {
@@ -223,9 +252,13 @@ function handleFileUpload(event) {
 
 function submit() {
     // POST with _method field in form data for file upload
+
     form.post(route('admin.reviews.update', props.review.id_review), {
         forceFormData: true,
         preserveScroll: true,
     });
+
+    form.post(`/admin/reviews/${props.review.id_review}`);
+
 }
 </script>
