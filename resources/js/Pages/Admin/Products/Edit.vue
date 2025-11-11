@@ -1,4 +1,4 @@
-﻿<template>
+<template>
     <Head title="Edit Produk" />
     <AdminLayout>
         <div class="max-w-4xl mx-auto space-y-6">
@@ -96,7 +96,22 @@
                 </div>
                 <div class="border-t pt-6">
                     <h3 class="text-lg font-semibold mb-4">Upload Foto Mobil</h3>
+
+                    
+                    <!-- Full Body Photo -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Foto Full Body</label>
+                        <img v-if="mobil.foto && mobil.foto[0]?.full_body" :src="`/storage/mobils/${mobil.foto[0].full_body}`" class="w-48 h-32 object-cover rounded mb-2" />
+                        <label class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600 text-sm justify-center w-fit">
+                            <span>{{ form.full_body ? 'Ganti' : 'Upload' }} foto full body</span>
+                            <input type="file" @change="handleFileUpload($event, 'full_body')" accept="image/*" class="hidden" />
+                        </label>
+                        <p v-if="form.full_body" class="text-xs text-gray-600 mt-1">{{ form.full_body.name }}</p>
+                    </div>
+                    <!-- Four Main Photos -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Foto Depan</label>
                             <img v-if="mobil.foto && mobil.foto[0]?.foto_depan" :src="`/storage/mobils/${mobil.foto[0].foto_depan}`" class="w-32 h-20 object-cover rounded mb-2" />
@@ -134,6 +149,50 @@
                             <p v-if="form.foto_kanan" class="text-xs text-gray-600 mt-1">{{ form.foto_kanan.name }}</p>
                         </div>
                     </div>
+
+
+                    <!-- Four Additional Photos -->
+                    <div>
+                        <h4 class="text-md font-semibold mb-3">Foto Tambahan (Opsional)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Foto Tambahan 1</label>
+                                <img v-if="mobil.foto && mobil.foto[0]?.tambahan1" :src="`/storage/mobils/${mobil.foto[0].tambahan1}`" class="w-32 h-20 object-cover rounded mb-2" />
+                                <label class="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg cursor-pointer hover:bg-green-600 text-sm justify-center">
+                                    <span>{{ form.tambahan1 ? 'Ganti' : 'Upload' }} tambahan 1</span>
+                                    <input type="file" @change="handleFileUpload($event, 'tambahan1')" accept="image/*" class="hidden" />
+                                </label>
+                                <p v-if="form.tambahan1" class="text-xs text-gray-600 mt-1">{{ form.tambahan1.name }}</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Foto Tambahan 2</label>
+                                <img v-if="mobil.foto && mobil.foto[0]?.tambahan2" :src="`/storage/mobils/${mobil.foto[0].tambahan2}`" class="w-32 h-20 object-cover rounded mb-2" />
+                                <label class="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg cursor-pointer hover:bg-green-600 text-sm justify-center">
+                                    <span>{{ form.tambahan2 ? 'Ganti' : 'Upload' }} tambahan 2</span>
+                                    <input type="file" @change="handleFileUpload($event, 'tambahan2')" accept="image/*" class="hidden" />
+                                </label>
+                                <p v-if="form.tambahan2" class="text-xs text-gray-600 mt-1">{{ form.tambahan2.name }}</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Foto Tambahan 3</label>
+                                <img v-if="mobil.foto && mobil.foto[0]?.tambahan3" :src="`/storage/mobils/${mobil.foto[0].tambahan3}`" class="w-32 h-20 object-cover rounded mb-2" />
+                                <label class="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg cursor-pointer hover:bg-green-600 text-sm justify-center">
+                                    <span>{{ form.tambahan3 ? 'Ganti' : 'Upload' }} tambahan 3</span>
+                                    <input type="file" @change="handleFileUpload($event, 'tambahan3')" accept="image/*" class="hidden" />
+                                </label>
+                                <p v-if="form.tambahan3" class="text-xs text-gray-600 mt-1">{{ form.tambahan3.name }}</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Foto Tambahan 4</label>
+                                <img v-if="mobil.foto && mobil.foto[0]?.tambahan4" :src="`/storage/mobils/${mobil.foto[0].tambahan4}`" class="w-32 h-20 object-cover rounded mb-2" />
+                                <label class="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg cursor-pointer hover:bg-green-600 text-sm justify-center">
+                                    <span>{{ form.tambahan4 ? 'Ganti' : 'Upload' }} tambahan 4</span>
+                                    <input type="file" @change="handleFileUpload($event, 'tambahan4')" accept="image/*" class="hidden" />
+                                </label>
+                                <p v-if="form.tambahan4" class="text-xs text-gray-600 mt-1">{{ form.tambahan4.name }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="border-t pt-6 flex gap-4 justify-center">
                     <button type="button" @click="$inertia.visit(route('admin.products.index'))" class="px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-lg">Kembali</button>
@@ -150,7 +209,11 @@ const props = defineProps({ mobil: Object });
 const form = useForm({
     nama_mobil: props.mobil.nama_mobil || '', merek: props.mobil.merek || '', varian: props.mobil.varian || '', tipe: props.mobil.spesifikasi?.tipe || '', tipe_penjual: props.mobil.tipe_penjual || '', tahun: props.mobil.tahun || '', kondisi: props.mobil.kondisi || 'Baru', deskripsi: props.mobil.deskripsi || '', harga: props.mobil.harga || '',
     warna: props.mobil.spesifikasi?.warna || '', plat_asal: props.mobil.spesifikasi?.plat_asal || '', masa_berlaku: props.mobil.spesifikasi?.masa_berlaku || '', kilometer: props.mobil.spesifikasi?.kilometer || '', transmisi: props.mobil.spesifikasi?.transmisi || '', bahan_bakar: props.mobil.spesifikasi?.bahan_bakar || '', sistem_penggerak: props.mobil.spesifikasi?.sistem_penggerak || '',
+    spare_key: props.mobil.spesifikasi?.spare_key || '', nomor_polisi: props.mobil.spesifikasi?.nomor_polisi || '', toolkit: props.mobil.spesifikasi?.toolkit || '', 
+    full_body: null, foto_depan: null, foto_belakang: null, foto_kiri: null, foto_kanan: null,
+    tambahan1: null, tambahan2: null, tambahan3: null, tambahan4: null,
     spare_key: props.mobil.spesifikasi?.spare_key || '', nomor_polisi: props.mobil.spesifikasi?.nomor_polisi || '', toolkit: props.mobil.spesifikasi?.toolkit || '', foto_depan: null, foto_belakang: null, foto_kiri: null, foto_kanan: null,
+
 });
 function handleFileUpload(event, field) { const file = event.target.files[0]; if (file) form[field] = file; }
 function submit() { form.post(route('admin.products.update', props.mobil.id_mobil), { forceFormData: true, _method: 'PUT' }); }

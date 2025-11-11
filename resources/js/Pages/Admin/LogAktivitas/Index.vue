@@ -8,6 +8,8 @@
                     <thead>
                         <tr class="bg-gray-50 text-left">
                             <th class="px-6 py-3 text-gray-600">ID</th>
+                            <th class="px-6 py-3 text-gray-600">ID ADMIN</th>
+
                             <th class="px-6 py-3 text-gray-600">NAMA</th>
                             <th class="px-6 py-3 text-gray-600">EMAIL</th>
                             <th class="px-6 py-3 text-gray-600">
@@ -19,12 +21,21 @@
                     <tbody class="divide-y">
                         <tr
                             v-for="log in logs.data"
+
+                            :key="log.id_log"
+                            class="hover:bg-gray-50"
+                        >
+                            <td class="px-6 py-4">{{ log.id_log || '-' }}</td>
+                            <td class="px-6 py-4">{{ log.id_admin || '-' }}</td>
+                            <td class="px-6 py-4">{{ log.admin?.nama || '-' }}</td>
+                            <td class="px-6 py-4">{{ log.admin?.email || '-' }}</td>
                             :key="log.id"
                             class="hover:bg-gray-50"
                         >
                             <td class="px-6 py-4">{{ log.id }}</td>
                             <td class="px-6 py-4">{{ log.admin?.nama }}</td>
                             <td class="px-6 py-4">{{ log.admin?.email }}</td>
+
                             <td class="px-6 py-4">
                                 {{ formatDate(log.created_at || log.tanggal) }}
                             </td>
@@ -32,7 +43,11 @@
                                 <span
                                     class="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-800"
                                 >
+
+                                    {{ log.aktivitas || log.activity || '-' }}
+
                                     {{ log.aktivitas || log.activity }}
+
                                 </span>
                             </td>
                         </tr>
