@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Admin\LogAktivitasController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\ProfileController;
+
+
 use App\Http\Controllers\Auth\AuthController;
 use Inertia\Inertia;
 
@@ -46,11 +49,18 @@ Route::middleware(['auth'])
         Route::resource('products', ProductController::class)
             ->parameters(['products' => 'mobil']);
 
-        // Manajemen Review/Ulasan
+        // Route khusus untuk update dengan file upload
+        Route::post('products/{mobil}/update-with-files', [ProductController::class, 'update'])
+            ->name('products.update-files');        // Manajemen Review/Ulasan
         Route::resource('reviews', ReviewController::class);
 
         // Profile
+
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
         Route::get('/profile', function () {
             return Inertia::render('Admin/Profile');
         })->name('profile');
+
     });
