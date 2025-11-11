@@ -15,6 +15,10 @@ protected $fillable = [
 	'id_mobil', 'nama_pelanggan', 'tanggal', 'isi_review', 'rating', 'foto_url'
 ];
 
+protected $casts = [
+	'tanggal' => 'date',
+];
+
 public function mobil()
 {
 return $this->belongsTo(Mobil::class, 'id_mobil');

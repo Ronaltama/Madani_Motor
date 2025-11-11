@@ -33,12 +33,31 @@ class HomeController extends Controller
                 ];
             });
 
+        // Get reviews from database
+        $reviews = ReviewTestimoni::with('mobil')
+            ->get()
+            ->map(function ($review) {
+                return [
+                    'id' => $review->id_review,
+                    'mobil' => $review->mobil ? $review->mobil->nama_mobil : 'Tidak Diketahui',
+                    'namaPelanggan' => $review->nama_pelanggan,
+                    'tanggal' => $review->tanggal ? $review->tanggal->format('d/m/Y') : '',
+                    'rating' => $review->rating,
+                    'isiUlasan' => $review->isi_review,
+                    'foto' => $review->foto_url ? asset('storage/' . $review->foto_url) : asset('images/placeholder-review.jpg'),
+                ];
+            });
+
         return Inertia::render('Public/Home', [
             'cars' => $cars,
+            'reviews' => $reviews,
         ]);
     }
 
-    public function cars(Request $request)
+    /**
+     * Get all cars with filters
+     */
+    public function cars(Request $request): \Inertia\Response
     {
         // Get all cars with filters (search, price range, transmission)
         $query = Mobil::with(['foto', 'spesifikasi']);
@@ -76,7 +95,10 @@ class HomeController extends Controller
         ]);
     }
 
-    public function show($id)
+    /**
+     * Show car details
+     */
+    public function show(int $id): \Inertia\Response
     {
         $mobil = Mobil::with(['foto', 'spesifikasi'])->findOrFail($id);
         $spek = $mobil->spesifikasi;
@@ -161,7 +183,10 @@ class HomeController extends Controller
         ]);
     }
 
-    public function compare(Request $request)
+    /**
+     * Compare multiple cars
+     */
+    public function compare(Request $request): \Inertia\Response
     {
         // Get all cars for comparison
         $cars = Mobil::with(['foto', 'spesifikasi'])
