@@ -49,7 +49,9 @@ Route::middleware(['auth'])
         Route::resource('products', ProductController::class)
             ->parameters(['products' => 'mobil']);
 
-        // Manajemen Review/Ulasan
+        // Route khusus untuk update dengan file upload
+        Route::post('products/{mobil}/update-with-files', [ProductController::class, 'update'])
+            ->name('products.update-files');        // Manajemen Review/Ulasan
         Route::resource('reviews', ReviewController::class);
 
         // Profile
