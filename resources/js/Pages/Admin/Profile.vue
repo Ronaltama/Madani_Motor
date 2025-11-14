@@ -209,18 +209,18 @@
                     </div>
 
                 </div>
+                <!-- Close border-t wrapper -->
+                </div>
+                <!-- Close Logout Section wrapper -->
             </div>
         </div>
     </AdminLayout>
 </template>
 
 <script setup>
-
-import { Head, Link, useForm } from "@inertiajs/vue3";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { computed } from "vue";
-import { usePage } from "@inertiajs/vue3";
 
 const page = usePage();
 const user = computed(() => page.props.auth?.user);

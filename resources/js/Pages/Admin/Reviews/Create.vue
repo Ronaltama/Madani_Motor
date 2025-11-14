@@ -9,32 +9,25 @@
                 </h2>
 
                 <form @submit.prevent="submit">
-                    <!-- Pilih Mobil -->
+                    <!-- Input ID Mobil (manual) -->
                     <div class="mb-4">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                            Mobil <span class="text-red-600">*</span>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            ID Mobil <span class="text-red-600">*</span>
                         </label>
-                        <select
-
+                        <input
                             v-model.number="form.id_mobil"
-
-                            v-model="form.id_mobil"
-
+                            type="number"
+                            placeholder="Masukkan ID Mobil (mobil terjual)"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
-                        >
-                            <option value="">Pilih Mobil</option>
-                            <option
-                                v-for="mobil in mobils"
-                                :key="mobil.id_mobil"
-                                :value="mobil.id_mobil"
-                            >
-                                {{ mobil.nama_mobil }} - {{ mobil.merek }}
-                                {{ mobil.varian }}
-                            </option>
-                        </select>
+                        />
+                        <p v-if="selectedMobil" class="text-xs text-gray-600 mt-2">
+                            <strong>Teridentifikasi:</strong>
+                            {{ selectedMobil.nama_mobil }} - {{ selectedMobil.merek }} {{ selectedMobil.varian }}
+                        </p>
+                        <p v-else-if="form.id_mobil" class="text-xs text-red-600 mt-2">
+                            ID mobil tidak ditemukan di daftar aktif.
+                        </p>
                     </div>
 
                     <!-- Nama Pelanggan -->
@@ -66,35 +59,18 @@
                         />
                     </div>
 
-                    <!-- Rating -->
+                    <!-- Rating (single list) -->
                     <div class="mb-4">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             Rating <span class="text-red-600">*</span>
                         </label>
                         <select
-
                             v-model.number="form.rating"
-
-                            v-model="form.rating"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         >
                             <option value="">Pilih Rating</option>
-
-                            <option :value="1">⭐ 1</option>
-                            <option :value="2">⭐ 2</option>
-                            <option :value="3">⭐ 3</option>
-                            <option :value="4">⭐ 4</option>
-                            <option :value="5">⭐ 5</option>
-
-                            <option value="1">⭐ 1</option>
-                            <option value="2">⭐ 2</option>
-                            <option value="3">⭐ 3</option>
-                            <option value="4">⭐ 4</option>
-                            <option value="5">⭐ 5</option>
-
+                            <option v-for="n in 5" :key="n" :value="n">⭐ {{ n }}</option>
                         </select>
                     </div>
 
@@ -180,7 +156,7 @@
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const props = defineProps({
     mobils: {
@@ -198,6 +174,12 @@ const form = useForm({
     foto_url: null,
 });
 
+// computed untuk menampilkan info mobil jika ID cocok
+const selectedMobil = computed(() => {
+    if (!form.id_mobil) return null;
+    return props.mobils.find(m => m.id_mobil === form.id_mobil) || null;
+});
+
 const fileInput = ref(null);
 
 function handleFileUpload(event) {
@@ -205,13 +187,9 @@ function handleFileUpload(event) {
 }
 
 function submit() {
-
     form.post(route("admin.reviews.store"), {
         forceFormData: true,
         preserveScroll: true,
     });
-
-    form.post(route("admin.reviews.store"));
-
 }
 </script>

@@ -114,6 +114,8 @@ class HomeController extends Controller
             'bahanBakar' => $spek ? $spek->bahan_bakar : 'N/A',
             'warna' => $spek ? $spek->warna : 'N/A',
             'tipe' => $spek ? $spek->tipe : 'N/A',
+            // Tidak ada kolom kepemilikan di DB saat ini; set kosong agar tampilan konsisten
+            'tanganKe' => $spek ? $spek->tangan_ke : '',
             'stnkValid' => $spek ? $spek->masa_berlaku : '-',
             'sistemPenggerak' => $spek ? $spek->sistem_penggerak : 'N/A',
             'noPolisi' => $spek ? $spek->nomor_polisi : '-',

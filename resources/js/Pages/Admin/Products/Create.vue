@@ -78,12 +78,12 @@
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Model</label
+                            >Tipe Registrasi</label
                         >
                         <input
                             v-model="form.tipe"
                             type="text"
-                            placeholder="Masukkan nama Model"
+                            placeholder="Masukkan tipe registrasi (contoh: Sedan, Hatchback)"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
@@ -114,19 +114,32 @@
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Lokasi</label
+                            >Kepemilikan</label
                         >
                         <input
-                            v-model="form.plat_asal"
-                            type="text"
-                            placeholder="Masukkan Lokasi"
+                            v-model.number="form.tangan_ke"
+                            type="number"
+                            min="1"
+                            placeholder="Tangan ke-"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Masa Berlaku</label
+                            >Plat Mobil</label
+                        >
+                        <input
+                            v-model="form.plat_asal"
+                            type="text"
+                            placeholder="Masukkan domisili/plat mobil (contoh: Jakarta)"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                            >Masa Berlaku STNK</label
                         >
                         <input
                             v-model="form.masa_berlaku"
@@ -221,12 +234,12 @@
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Nomor Polisi</label
+                            >No Polisi</label
                         >
                         <input
                             v-model="form.nomor_polisi"
                             type="text"
-                            placeholder="Masukkan nomor polisi"
+                            placeholder="Masukkan nomor polisi (contoh: B 1234 ABC)"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
@@ -519,6 +532,7 @@ const form = useForm({
     deskripsi: "",
     harga: "",
     warna: "",
+    tangan_ke: "",
     plat_asal: "",
     masa_berlaku: "",
     kilometer: "",

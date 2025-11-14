@@ -52,28 +52,16 @@ class ReviewController extends Controller
             'foto_url' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        // Handle foto upload jika ada
+        // Handle foto upload jika ada (gunakan storage public seperti produk)
         if ($request->hasFile('foto_url')) {
-            $file = $request->file('foto_url');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images/reviews'), $filename);
-            $validated['foto_url'] = '/images/reviews/' . $filename;
+            $path = $request->file('foto_url')->store('reviews', 'public');
+            // Simpan path yang bisa langsung dipakai di <img src>
+            $validated['foto_url'] = '/storage/' . $path; // contoh: /storage/reviews/xxxx.jpg
         }
 
         $review = ReviewTestimoni::create($validated);
 
-        // log aktivitas (best-effort)
-        try {
-            LogAktivitas::create([
-                'id_admin' => Auth::id(),
-                'id_mobil' => null,
-                'id_review' => $review->id_review ?? null,
-                'aktivitas' => 'Menambah ulasan pelanggan: ' . ($review->nama_pelanggan ?? ''),
-                'tanggal' => now()->toDateString(),
-            ]);
-        } catch (\Throwable $th) {
-            // ignore if logging fails
-        }
+        $this->logReviewActivity($review, 'Menambah ulasan pelanggan');
 
         return redirect()->route('admin.reviews.index')
             ->with('success', 'Ulasan berhasil ditambahkan');
@@ -114,16 +102,20 @@ class ReviewController extends Controller
 
         // Handle foto upload jika ada
         if ($request->hasFile('foto_url')) {
-
-            // Hapus foto lama jika ada
-            if ($review->foto_url && file_exists(public_path($review->foto_url))) {
-                @unlink(public_path($review->foto_url));
+            // Hapus foto lama jika ada (dukung lokasi lama dan baru)
+            if ($review->foto_url) {
+                if (str_starts_with($review->foto_url, '/storage/')) {
+                    // path disimpan seperti /storage/reviews/xxx.jpg -> remove prefix untuk delete
+                    $relative = ltrim(str_replace('/storage/', '', $review->foto_url), '/');
+                    Storage::disk('public')->delete($relative);
+                } else {
+                    // legacy: public/images/reviews
+                    @unlink(public_path($review->foto_url));
+                }
             }
-            
-            $file = $request->file('foto_url');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images/reviews'), $filename);
-            $validated['foto_url'] = '/images/reviews/' . $filename;
+
+            $path = $request->file('foto_url')->store('reviews', 'public');
+            $validated['foto_url'] = '/storage/' . $path;
 
         } else {
             // Jika tidak ada upload foto baru, pertahankan foto lama
@@ -134,18 +126,7 @@ class ReviewController extends Controller
 
         $review->update($validated);
 
-        // log aktivitas (best-effort)
-        try {
-            LogAktivitas::create([
-                'id_admin' => Auth::id(),
-                'id_mobil' => null,
-                'id_review' => $review->id_review ?? null,
-                'aktivitas' => 'Memperbarui ulasan pelanggan: ' . ($review->nama_pelanggan ?? ''),
-                'tanggal' => now()->toDateString(),
-            ]);
-        } catch (\Throwable $th) {
-            // ignore if logging fails
-        }
+        $this->logReviewActivity($review, 'Memperbarui ulasan pelanggan');
 
         return redirect()->route('admin.reviews.index')
             ->with('success', 'Ulasan berhasil diperbarui');
@@ -162,32 +143,41 @@ class ReviewController extends Controller
         $idReview = $review->id_review;
 
         // Hapus foto jika ada
-        if ($review->foto_url && file_exists(public_path($review->foto_url))) {
-            @unlink(public_path($review->foto_url));
+        if ($review->foto_url) {
+            if (str_starts_with($review->foto_url, '/storage/')) {
+                $relative = ltrim(str_replace('/storage/', '', $review->foto_url), '/');
+                Storage::disk('public')->delete($relative);
+            } else {
+                @unlink(public_path($review->foto_url));
+            }
         }
 
-        // Hapus review
+        // Log terlebih dulu (FK masih ada, nanti otomatis SET NULL karena onDelete('set null'))
+        $this->logReviewActivity($review, 'Menghapus ulasan pelanggan');
 
+        // Baru hapus review
         $review->delete();
-
-        // log aktivitas (best-effort)
-        try {
-            LogAktivitas::create([
-                'id_admin' => Auth::id(),
-                'id_mobil' => null,
-
-                'id_review' => null, // Set null karena review sudah dihapus
-                'aktivitas' => 'Menghapus ulasan pelanggan: ' . $namaPelanggan,
-
-                'id_review' => $review->id_review ?? null,
-                'aktivitas' => 'Menghapus ulasan pelanggan: ' . ($review->nama_pelanggan ?? ''),
-                'tanggal' => now()->toDateString(),
-            ]);
-        } catch (\Throwable $th) {
-            // ignore if logging fails
-        }
 
         return redirect()->route('admin.reviews.index')
             ->with('success', 'Ulasan berhasil dihapus');
+    }
+
+    /**
+     * Catat aktivitas terkait review (best-effort tanpa menghentikan proses utama)
+     */
+    private function logReviewActivity($review, string $action): void
+    {
+        try {
+            LogAktivitas::create([
+                'id_admin' => Auth::id(),
+                'id_mobil' => $review->id_mobil ?? null,
+                'id_review' => $review->id_review ?? null,
+                'id_review_snapshot' => $review->id_review ?? null,
+                'aktivitas' => $action . ' (ID Review: ' . ($review->id_review ?? '-') . ', Pelanggan: ' . ($review->nama_pelanggan ?? '-') . ')',
+                'tanggal' => now()->toDateString(),
+            ]);
+        } catch (\Throwable $th) {
+            // silent fail
+        }
     }
 }

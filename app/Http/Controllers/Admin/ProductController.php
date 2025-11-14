@@ -64,6 +64,7 @@ class ProductController extends Controller
                 'spare_key' => 'nullable|string',
                 'toolkit' => 'nullable|string',
                 'warna' => 'nullable|string',
+                'tangan_ke' => 'nullable|integer|min:1|max:20',
                 // Foto
                 'full_body' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
                 'foto_depan' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -102,6 +103,7 @@ class ProductController extends Controller
                 'spare_key' => $validated['spare_key'] ?? null,
                 'toolkit' => $validated['toolkit'] ?? null,
                 'warna' => $validated['warna'] ?? null,
+                'tangan_ke' => $validated['tangan_ke'] ?? null,
             ]);
 
             // Simpan foto mobil
@@ -173,6 +175,7 @@ class ProductController extends Controller
                 'spare_key' => 'nullable|string',
                 'toolkit' => 'nullable|string',
                 'warna' => 'nullable|string',
+                'tangan_ke' => 'nullable|integer|min:1|max:20',
                 // Foto
                 'full_body' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
                 'foto_depan' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -212,6 +215,7 @@ class ProductController extends Controller
                     'spare_key' => $validated['spare_key'] ?? null,
                     'toolkit' => $validated['toolkit'] ?? null,
                     'warna' => $validated['warna'] ?? null,
+                    'tangan_ke' => $validated['tangan_ke'] ?? null,
                 ]
             );
 

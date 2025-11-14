@@ -11,7 +11,7 @@ use HasFactory;
 
 protected $table = 'log_aktivitas';
 protected $primaryKey = 'id_log';
-protected $fillable = ['id_admin', 'id_mobil', 'id_review', 'aktivitas', 'tanggal'];
+protected $fillable = ['id_admin', 'id_mobil', 'id_review', 'id_review_snapshot', 'aktivitas', 'tanggal'];
 
 public function admin()
 {
