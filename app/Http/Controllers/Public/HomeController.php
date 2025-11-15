@@ -19,6 +19,16 @@ class HomeController extends Controller
                 $foto = $mobil->foto->first();
                 $spek = $mobil->spesifikasi;
 
+                // Handle both filename only and full path from database
+                $imageUrl = asset('images/placeholder-car.png');
+                if ($foto && $foto->full_body) {
+                    // If already contains 'mobils/', use as is, otherwise prepend it
+                    $imagePath = str_contains($foto->full_body, 'mobils/') 
+                        ? $foto->full_body 
+                        : 'mobils/' . $foto->full_body;
+                    $imageUrl = asset('storage/' . $imagePath);
+                }
+
                 return [
                     'id' => $mobil->id_mobil,
                     'name' => $mobil->nama_mobil,
@@ -27,9 +37,7 @@ class HomeController extends Controller
                     'km' => $spek ? $spek->kilometer . ' km' : '0 km',
                     'transmission' => $spek ? $spek->transmisi : 'N/A',
                     'bahanBakar' => $spek ? $spek->bahan_bakar : 'N/A',
-                    'image' => $foto && $foto->full_body
-                        ? asset('storage/mobils/' . $foto->full_body)
-                        : asset('images/placeholder-car.png'),
+                    'image' => $imageUrl,
                 ];
             });
 
@@ -44,7 +52,7 @@ class HomeController extends Controller
                     'tanggal' => $review->tanggal ? $review->tanggal->format('d/m/Y') : '',
                     'rating' => $review->rating,
                     'isiUlasan' => $review->isi_review,
-                    'foto' => $review->foto_url ? asset('storage/' . $review->foto_url) : asset('images/placeholder-review.jpg'),
+                    'foto' => $review->foto_url ? asset($review->foto_url) : asset('images/placeholder-review.jpg'),
                 ];
             });
 
@@ -76,6 +84,16 @@ class HomeController extends Controller
             $foto = $mobil->foto->first();
             $spek = $mobil->spesifikasi;
 
+            // Handle both filename only and full path from database
+            $imageUrl = asset('images/placeholder-car.png');
+            if ($foto && $foto->full_body) {
+                // If already contains 'mobils/', use as is, otherwise prepend it
+                $imagePath = str_contains($foto->full_body, 'mobils/') 
+                    ? $foto->full_body 
+                    : 'mobils/' . $foto->full_body;
+                $imageUrl = asset('storage/' . $imagePath);
+            }
+
             return [
                 'id' => $mobil->id_mobil,
                 'name' => $mobil->nama_mobil,
@@ -84,9 +102,7 @@ class HomeController extends Controller
                 'km' => $spek ? $spek->kilometer . ' km' : '0 km',
                 'transmission' => $spek ? $spek->transmisi : 'N/A',
                 'bahanBakar' => $spek ? $spek->bahan_bakar : 'N/A',
-                'image' => $foto && $foto->full_body
-                    ? asset('storage/mobils/' . $foto->full_body)
-                    : asset('images/placeholder-car.png'),
+                'image' => $imageUrl,
             ];
         });
 
@@ -123,17 +139,24 @@ class HomeController extends Controller
             'description' => $mobil->deskripsi ?? 'Tidak ada deskripsi',
             'photos' => $mobil->foto->map(function ($foto) {
                 $photos = [];
+                // Helper function to build photo URL
+                $buildUrl = function($filename) {
+                    if (!$filename) return null;
+                    $path = str_contains($filename, 'mobils/') ? $filename : 'mobils/' . $filename;
+                    return asset('storage/' . $path);
+                };
+                
                 // Foto wajib
-                if ($foto->full_body) $photos[] = ['url' => asset('storage/mobils/' . $foto->full_body)];
-                if ($foto->foto_depan) $photos[] = ['url' => asset('storage/mobils/' . $foto->foto_depan)];
-                if ($foto->foto_belakang) $photos[] = ['url' => asset('storage/mobils/' . $foto->foto_belakang)];
-                if ($foto->foto_kiri) $photos[] = ['url' => asset('storage/mobils/' . $foto->foto_kiri)];
-                if ($foto->foto_kanan) $photos[] = ['url' => asset('storage/mobils/' . $foto->foto_kanan)];
+                if ($foto->full_body) $photos[] = ['url' => $buildUrl($foto->full_body)];
+                if ($foto->foto_depan) $photos[] = ['url' => $buildUrl($foto->foto_depan)];
+                if ($foto->foto_belakang) $photos[] = ['url' => $buildUrl($foto->foto_belakang)];
+                if ($foto->foto_kiri) $photos[] = ['url' => $buildUrl($foto->foto_kiri)];
+                if ($foto->foto_kanan) $photos[] = ['url' => $buildUrl($foto->foto_kanan)];
                 // Foto tambahan
-                if ($foto->tambahan1) $photos[] = ['url' => asset('storage/mobils/' . $foto->tambahan1)];
-                if ($foto->tambahan2) $photos[] = ['url' => asset('storage/mobils/' . $foto->tambahan2)];
-                if ($foto->tambahan3) $photos[] = ['url' => asset('storage/mobils/' . $foto->tambahan3)];
-                if ($foto->tambahan4) $photos[] = ['url' => asset('storage/mobils/' . $foto->tambahan4)];
+                if ($foto->tambahan1) $photos[] = ['url' => $buildUrl($foto->tambahan1)];
+                if ($foto->tambahan2) $photos[] = ['url' => $buildUrl($foto->tambahan2)];
+                if ($foto->tambahan3) $photos[] = ['url' => $buildUrl($foto->tambahan3)];
+                if ($foto->tambahan4) $photos[] = ['url' => $buildUrl($foto->tambahan4)];
                 return $photos;
             })->flatten(1),
         ];
@@ -145,6 +168,16 @@ class HomeController extends Controller
             ->map(function ($m) {
                 $f = $m->foto->first();
                 $s = $m->spesifikasi;
+                
+                // Handle both filename only and full path from database
+                $imageUrl = asset('images/placeholder-car.png');
+                if ($f && $f->full_body) {
+                    $imagePath = str_contains($f->full_body, 'mobils/') 
+                        ? $f->full_body 
+                        : 'mobils/' . $f->full_body;
+                    $imageUrl = asset('storage/' . $imagePath);
+                }
+                
                 return [
                     'id' => $m->id_mobil,
                     'name' => $m->nama_mobil,
@@ -152,9 +185,7 @@ class HomeController extends Controller
                     'price' => $m->harga,
                     'km' => $s ? $s->kilometer . ' km' : '0 km',
                     'transmission' => $s ? $s->transmisi : 'N/A',
-                    'image' => $f && $f->full_body
-                        ? asset('storage/mobils/' . $f->full_body)
-                        : asset('images/placeholder-car.png'),
+                    'image' => $imageUrl,
                 ];
             })
             ->take(6);

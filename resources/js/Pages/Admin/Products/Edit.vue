@@ -6,6 +6,15 @@
                 <h2 class="text-2xl font-bold text-gray-900">Edit Produk</h2>
                 <p class="text-gray-600 mt-1">Ubah data produk di bawah</p>
             </div>
+
+            <!-- Error Messages -->
+            <div v-if="Object.keys(form.errors).length > 0" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                <p class="font-semibold mb-2">Terdapat kesalahan:</p>
+                <ul class="list-disc list-inside text-sm">
+                    <li v-for="(error, field) in form.errors" :key="field">{{ error }}</li>
+                </ul>
+            </div>
+
             <form
                 @submit.prevent="submit"
                 class="bg-white rounded-lg shadow p-6 space-y-6"
@@ -676,9 +685,17 @@ function handleFileUpload(event, field) {
     const file = event.target.files[0];
     if (file) form[field] = file;
 }
+
 function submit() {
     form.post(route("admin.products.update-files", props.mobil.id_mobil), {
         forceFormData: true,
+        onError: (errors) => {
+            console.error('Form submission errors:', errors);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+        onSuccess: () => {
+            console.log('Product updated successfully');
+        }
     });
 }
 </script>

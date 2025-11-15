@@ -48,16 +48,16 @@ class ProductController extends Controller
                 'merek' => 'required|string|max:255',
                 'varian' => 'nullable|string|max:255',
                 'tipe_penjual' => 'nullable|string',
-                'tahun' => 'nullable|integer',
-                'kondisi' => 'required|string',
+                'tahun' => 'nullable|integer|min:1900|max:' . (date('Y') + 1),
+                'kondisi' => 'required|in:Baru,Bekas',
                 'deskripsi' => 'nullable|string',
-                'harga' => 'nullable|numeric',
+                'harga' => 'nullable|numeric|min:0',
                 // Spesifikasi
                 'tipe' => 'nullable|string',
                 'bahan_bakar' => 'nullable|string',
                 'sistem_penggerak' => 'nullable|string',
                 'transmisi' => 'nullable|string',
-                'kilometer' => 'nullable|integer',
+                'kilometer' => 'nullable|integer|min:0',
                 'plat_asal' => 'nullable|string',
                 'nomor_polisi' => 'nullable|string',
                 'masa_berlaku' => 'nullable|date',
@@ -308,20 +308,28 @@ class ProductController extends Controller
     {
         $mobil->load(['spesifikasi', 'foto']);
 
+        // Helper function to build photo URL (handles both filename only and full path)
+        $buildPhotoUrl = function($filename) {
+            if (!$filename) return null;
+            // If already contains 'mobils/', use as is, otherwise prepend it
+            $path = str_contains($filename, 'mobils/') ? $filename : 'mobils/' . $filename;
+            return asset('storage/' . $path);
+        };
+
         // Format foto paths dengan base URL yang benar
         $mobilData = $mobil->toArray();
         if ($mobil->foto && $mobil->foto->count() > 0) {
             $foto = $mobil->foto->first();
             $mobilData['foto_formatted'] = [
-                'full_body' => $foto->full_body ? asset('storage/mobils/' . $foto->full_body) : null,
-                'foto_depan' => $foto->foto_depan ? asset('storage/mobils/' . $foto->foto_depan) : null,
-                'foto_belakang' => $foto->foto_belakang ? asset('storage/mobils/' . $foto->foto_belakang) : null,
-                'foto_kiri' => $foto->foto_kiri ? asset('storage/mobils/' . $foto->foto_kiri) : null,
-                'foto_kanan' => $foto->foto_kanan ? asset('storage/mobils/' . $foto->foto_kanan) : null,
-                'tambahan1' => $foto->tambahan1 ? asset('storage/mobils/' . $foto->tambahan1) : null,
-                'tambahan2' => $foto->tambahan2 ? asset('storage/mobils/' . $foto->tambahan2) : null,
-                'tambahan3' => $foto->tambahan3 ? asset('storage/mobils/' . $foto->tambahan3) : null,
-                'tambahan4' => $foto->tambahan4 ? asset('storage/mobils/' . $foto->tambahan4) : null,
+                'full_body' => $buildPhotoUrl($foto->full_body),
+                'foto_depan' => $buildPhotoUrl($foto->foto_depan),
+                'foto_belakang' => $buildPhotoUrl($foto->foto_belakang),
+                'foto_kiri' => $buildPhotoUrl($foto->foto_kiri),
+                'foto_kanan' => $buildPhotoUrl($foto->foto_kanan),
+                'tambahan1' => $buildPhotoUrl($foto->tambahan1),
+                'tambahan2' => $buildPhotoUrl($foto->tambahan2),
+                'tambahan3' => $buildPhotoUrl($foto->tambahan3),
+                'tambahan4' => $buildPhotoUrl($foto->tambahan4),
             ];
         } else {
             // Jika tidak ada foto, buat struktur kosong
