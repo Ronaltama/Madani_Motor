@@ -1,29 +1,29 @@
 <template>
-    <section class="py-4">
-        <div class="max-w-[1600px] mx-auto px-12 md:px-16 lg:px-24">
+    <section class="py-4 sm:py-6 md:py-8">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24">
             <!-- Title -->
-            <div class="text-center mb-4">
-                <h1 class="text-3xl font-bold mb-3">Mobil Pilihan</h1>
-                <div class="w-24 h-1 bg-[#BB0102] mx-auto rounded-full"></div>
+            <div class="text-center mb-4 sm:mb-6 md:mb-8">
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3">Mobil Pilihan</h1>
+                <div class="w-16 sm:w-20 md:w-24 h-1 bg-[#BB0102] mx-auto rounded-full"></div>
             </div>
 
             <!-- Rekomendasi -->
-            <div class="mb-12">
-                <div class="mb-6">
-                    <h2 class="text-xl font-bold inline-block relative pb-2">
+            <div class="mb-8 sm:mb-10 md:mb-12">
+                <div class="mb-4 sm:mb-5 md:mb-6">
+                    <h2 class="text-base sm:text-lg md:text-xl font-bold inline-block relative pb-2">
                         Rekomendasi
                     </h2>
-                    <div class="w-24 h-1 bg-[#BB0102] mt-1 rounded-full"></div>
+                    <div class="w-16 sm:w-20 md:w-24 h-1 bg-[#BB0102] mt-1 rounded-full"></div>
                 </div>
                 <div class="relative">
                     <button
                         v-show="scrollStates.rekomendasi.showLeft"
                         @click="scrollLeft('rekomendasi')"
-                        class="absolute -left-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center hover:opacity-70 transition-all"
+                        class="absolute -left-6 sm:-left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-9 h-9 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -40,24 +40,25 @@
                     <div
                         ref="rekomendasiScroll"
                         @scroll="handleScroll('rekomendasi')"
-                        class="flex gap-4 overflow-x-auto pb-4 scroll-smooth pr-2 -ml-2 pl-2"
+                        class="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto pb-4 scroll-smooth"
                     >
-                        <CardMobil
+                        <div
                             v-for="car in rekomendasi"
                             :key="car.id"
-                            :car="car"
-                            class="flex-shrink-0"
-                        />
+                            class="flex-shrink-0 w-[calc(50%-0.25rem)] min-w-[140px] sm:w-[200px] md:w-[240px] lg:w-[279px] flex"
+                        >
+                            <CardMobil :car="car" :fullWidth="true" class="w-full" />
+                        </div>
                     </div>
 
                     <button
                         v-show="scrollStates.rekomendasi.showRight"
                         @click="scrollRight('rekomendasi')"
-                        class="absolute -right-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center hover:opacity-70 transition-all"
+                        class="absolute -right-6 sm:-right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-9 h-9 text-black"
+                            class="w-7 h-7 lg:w-9 lg:h-9 text-black"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -74,22 +75,22 @@
             </div>
 
             <!-- Tahun Terbaru -->
-            <div class="mb-12">
-                <div class="mb-6">
-                    <h2 class="text-xl font-bold inline-block relative pb-2">
+            <div class="mb-8 sm:mb-10 md:mb-12">
+                <div class="mb-4 sm:mb-5 md:mb-6">
+                    <h2 class="text-base sm:text-lg md:text-xl font-bold inline-block relative pb-2">
                         Tahun Terbaru
                     </h2>
-                    <div class="w-24 h-1 bg-[#BB0102] mt-1 rounded-full"></div>
+                    <div class="w-16 sm:w-20 md:w-24 h-1 bg-[#BB0102] mt-1 rounded-full"></div>
                 </div>
                 <div class="relative">
                     <button
                         v-show="scrollStates.tahunTerbaru.showLeft"
                         @click="scrollLeft('tahunTerbaru')"
-                        class="absolute -left-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center hover:opacity-70 transition-all"
+                        class="absolute -left-6 sm:-left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-8 h-8 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -106,24 +107,25 @@
                     <div
                         ref="tahunTerbaruScroll"
                         @scroll="handleScroll('tahunTerbaru')"
-                        class="flex gap-4 overflow-x-auto pb-4 scroll-smooth pr-2 -ml-2 pl-2"
+                        class="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto pb-4 scroll-smooth"
                     >
-                        <CardMobil
+                        <div
                             v-for="car in tahunTerbaru"
                             :key="car.id"
-                            :car="car"
-                            class="flex-shrink-0"
-                        />
+                            class="flex-shrink-0 w-[calc(50%-0.25rem)] min-w-[140px] sm:w-[200px] md:w-[240px] lg:w-[279px] flex"
+                        >
+                            <CardMobil :car="car" :fullWidth="true" class="w-full" />
+                        </div>
                     </div>
 
                     <button
                         v-show="scrollStates.tahunTerbaru.showRight"
                         @click="scrollRight('tahunTerbaru')"
-                        class="absolute -right-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center hover:opacity-70 transition-all"
+                        class="absolute -right-6 sm:-right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-8 h-8 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -140,22 +142,22 @@
             </div>
 
             <!-- Harga Termurah -->
-            <div class="mb-12">
-                <div class="mb-6">
-                    <h2 class="text-xl font-bold inline-block relative pb-2">
+            <div class="mb-8 sm:mb-10 md:mb-12">
+                <div class="mb-4 sm:mb-5 md:mb-6">
+                    <h2 class="text-base sm:text-lg md:text-xl font-bold inline-block relative pb-2">
                         Harga Termurah
                     </h2>
-                    <div class="w-24 h-1 bg-[#BB0102] mt-1 rounded-full"></div>
+                    <div class="w-16 sm:w-20 md:w-24 h-1 bg-[#BB0102] mt-1 rounded-full"></div>
                 </div>
                 <div class="relative">
                     <button
                         v-show="scrollStates.hargaTermurah.showLeft"
                         @click="scrollLeft('hargaTermurah')"
-                        class="absolute -left-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center hover:opacity-70 transition-all"
+                        class="absolute -left-6 sm:-left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-8 h-8 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -172,24 +174,25 @@
                     <div
                         ref="hargaTermurahScroll"
                         @scroll="handleScroll('hargaTermurah')"
-                        class="flex gap-4 overflow-x-auto pb-4 scroll-smooth pr-2 -ml-2 pl-2"
+                        class="flex gap-2 sm:gap-3 md:gap-4 overflow-x-auto pb-4 scroll-smooth"
                     >
-                        <CardMobil
+                        <div
                             v-for="car in hargaTermurah"
                             :key="car.id"
-                            :car="car"
-                            class="flex-shrink-0"
-                        />
+                            class="flex-shrink-0 w-[calc(50%-0.25rem)] min-w-[140px] sm:w-[200px] md:w-[240px] lg:w-[279px] flex"
+                        >
+                            <CardMobil :car="car" :fullWidth="true" class="w-full" />
+                        </div>
                     </div>
 
                     <button
                         v-show="scrollStates.hargaTermurah.showRight"
                         @click="scrollRight('hargaTermurah')"
-                        class="absolute -right-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center hover:opacity-70 transition-all"
+                        class="absolute -right-6 sm:-right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-8 h-8 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -206,10 +209,10 @@
             </div>
 
             <!-- Button -->
-            <div class="text-center mt-10 mb-8">
+            <div class="text-center mt-8 sm:mt-10 mb-6 sm:mb-8">
                 <Link
                     :href="route('cars.index')"
-                    class="inline-block px-10 py-3 bg-[#BB0102] text-white rounded-full hover:bg-[#990101] active:scale-95 transition-all duration-300 font-bold text-base shadow-lg hover:shadow-xl"
+                    class="inline-block px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 bg-[#BB0102] text-white rounded-full hover:bg-[#990101] active:scale-95 transition-all duration-300 font-bold text-sm sm:text-base shadow-lg hover:shadow-xl"
                 >
                     Lihat Daftar Mobil
                 </Link>
@@ -253,7 +256,17 @@ const tahunTerbaru = computed(() =>
 
 const rekomendasi = computed(() =>
     [...props.cars].sort((a, b) => {
-        if (b.year !== a.year) return b.year - a.year;
+        // Prioritas 1: KM Terendah (Ascending)
+        if (a.km !== b.km) {
+            return a.km - b.km;
+        }
+
+        // Prioritas 2: Tahun Terbaru (Descending)
+        if (b.year !== a.year) {
+            return b.year - a.year;
+        }
+
+        // Prioritas 3: Harga Termurah (Ascending)
         return a.price - b.price;
     })
 );

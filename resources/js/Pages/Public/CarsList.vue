@@ -1,7 +1,6 @@
 <template>
     <PublicLayout>
-        <section class="max-w-[1600px] mx-auto px-6 md:px-8 lg:px-12 py-16">
-            <!-- Back Button -->
+        <section class="container mx-auto px-4 py-8">
             <div class="mb-4">
                 <button
                     @click="goBack"
@@ -24,36 +23,40 @@
                 </button>
             </div>
 
-            <div class="text-center mb-12">
-                <h1 class="text-3xl font-bold mb-3">Daftar Mobil Tersedia</h1>
-                <div class="w-24 h-1 bg-[#BB0102] mx-auto rounded-full"></div>
+            <div class="text-center mb-4">
+                <h1 class="text-2xl sm:text-3xl font-bold mb-3">Daftar Mobil Tersedia</h1>
+                <div class="w-20 sm:w-24 h-1 bg-[#BB0102] mx-auto rounded-full"></div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-4">
-                <!-- Sidebar Filter & Sort -->
-                <aside class="lg:col-span-1">
-                    <div
-                        class="sticky top-28 bg-white p-5 rounded-lg shadow-md"
-                    >
-                        <!-- Judul Filter Pencarian -->
-                        <div class="mb-6">
-                            <h2
-                                class="text-lg font-bold inline-block relative pb-2"
-                            >
+            <!-- Filter Button untuk Mobile -->
+            <div class="lg:hidden flex justify-end mb-4">
+                <button
+                    @click="showMobileFilter = true"
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-[#BB0102] text-white rounded-lg hover:bg-red-700 transition-colors shadow-md"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                    <span class="font-semibold text-sm">Filter & Sort</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-4 lg:gap-6">
+                <!-- Desktop Sidebar Filter -->
+                <aside class="hidden lg:block lg:col-span-1">
+                    <div class="sticky top-28 bg-white p-4 rounded-lg shadow-md">
+                        <div class="mb-5">
+                            <h2 class="text-base font-bold inline-block relative pb-2">
                                 Filter Pencarian
                             </h2>
-                            <div
-                                class="w-20 h-1 bg-[#BB0102] mt-1 rounded-full"
-                            ></div>
+                            <div class="w-16 h-1 bg-[#BB0102] mt-1 rounded-full"></div>
                         </div>
 
-                        <!-- Urutkan Section -->
-                        <h3
-                            class="text-sm font-semibold mb-3 border-b border-gray-300 pb-2"
-                        >
+                        <!-- Filter Content -->
+                        <h3 class="text-xs font-semibold mb-2 border-b border-gray-300 pb-2">
                             Urutkan
                         </h3>
-                        <div class="space-y-2 mb-5">
+                        <div class="space-y-2 mb-4">
                             <div class="flex items-center">
                                 <input
                                     type="radio"
@@ -112,13 +115,10 @@
                             </div>
                         </div>
 
-                        <!-- Transmisi Section -->
-                        <h3
-                            class="text-sm font-semibold mb-3 border-b border-gray-300 pb-2"
-                        >
+                        <h3 class="text-xs font-semibold mb-2 border-b border-gray-300 pb-2">
                             Transmisi
                         </h3>
-                        <div class="space-y-2 mb-5">
+                        <div class="space-y-2 mb-4">
                             <div class="flex items-center">
                                 <input
                                     type="checkbox"
@@ -149,24 +149,16 @@
                             </div>
                         </div>
 
-                        <!-- Filter Harga Section -->
-                        <h3
-                            class="text-sm font-semibold mb-3 border-b border-gray-300 pb-2"
-                        >
+                        <h3 class="text-xs font-semibold mb-2 border-b border-gray-300 pb-2">
                             Harga
                         </h3>
-                        <div class="mb-5">
+                        <div class="mb-4">
                             <p class="text-xs text-gray-600 mb-3">
                                 Rentang harga dipilih
                             </p>
 
-                            <!-- Range Slider -->
-                            <div class="relative pt-1 px-1 mb-8">
-                                <!-- Track Background -->
-                                <div
-                                    class="relative h-2 bg-gray-200 rounded-full"
-                                >
-                                    <!-- Colored Track -->
+                            <div class="relative pt-1 px-1 mb-6">
+                                <div class="relative h-2 bg-gray-200 rounded-full">
                                     <div
                                         class="absolute h-full bg-[#BB0102] rounded-full"
                                         :style="{
@@ -185,7 +177,6 @@
                                     ></div>
                                 </div>
 
-                                <!-- Min Range Slider -->
                                 <input
                                     type="range"
                                     :min="25000000"
@@ -196,7 +187,6 @@
                                     class="range-slider-min"
                                 />
 
-                                <!-- Max Range Slider -->
                                 <input
                                     type="range"
                                     :min="25000000"
@@ -208,16 +198,12 @@
                                 />
                             </div>
 
-                            <!-- Display Selected Price Range -->
-                            <div
-                                class="flex justify-between mt-4 text-xs font-medium text-gray-700"
-                            >
+                            <div class="flex justify-between mt-4 text-xs font-medium text-gray-700">
                                 <span>Rp {{ formatPrice(minPriceTemp) }}</span>
                                 <span>Rp {{ formatPrice(maxPriceTemp) }}</span>
                             </div>
                         </div>
 
-                        <!-- Tombol Reset Filter -->
                         <button
                             @click="resetFilters"
                             class="w-full mb-3 px-4 py-2 bg-white text-[#BB0102] border-2 border-[#BB0102] rounded-md hover:bg-red-50 text-sm font-semibold transition-colors"
@@ -225,7 +211,6 @@
                             Reset Filter
                         </button>
 
-                        <!-- Tombol Terapkan Filter -->
                         <button
                             @click="applyFilters"
                             class="w-full px-4 py-2 bg-[#BB0102] text-white rounded-md hover:bg-red-700 text-sm font-semibold transition-colors"
@@ -235,28 +220,213 @@
                     </div>
                 </aside>
 
-                <!-- Main Content - Grid Mobil -->
-                <main>
+                <!-- Mobile Filter Modal - Sidebar Style -->
+                <transition name="modal">
                     <div
-                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                        v-if="showMobileFilter"
+                        class="fixed inset-0 z-50 lg:hidden"
                     >
+                        <div class="absolute inset-y-0 right-0 w-full max-w-xs bg-white shadow-xl overflow-y-auto">
+                            <div class="sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between z-10">
+                                <h2 class="text-lg font-bold">Filter & Sort</h2>
+                                <button
+                                    @click="showMobileFilter = false"
+                                    class="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                >
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="p-5">
+                                <!-- Filter Content (sama seperti desktop) -->
+                                <h3 class="text-sm font-semibold mb-3 border-b border-gray-300 pb-2">
+                                    Urutkan
+                                </h3>
+                                <div class="space-y-2 mb-5">
+                                    <div class="flex items-center">
+                                        <input
+                                            type="radio"
+                                            id="sort-default-mobile"
+                                            value="default"
+                                            v-model="sortByTemp"
+                                            class="h-4 w-4 text-[#BB0102] focus:ring-[#BB0102] accent-[#BB0102]"
+                                        />
+                                        <label
+                                            for="sort-default-mobile"
+                                            class="ml-2 block text-xs text-gray-700 cursor-pointer"
+                                            >Default</label
+                                        >
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input
+                                            type="radio"
+                                            id="sort-price-asc-mobile"
+                                            value="priceAsc"
+                                            v-model="sortByTemp"
+                                            class="h-4 w-4 text-[#BB0102] focus:ring-[#BB0102] accent-[#BB0102]"
+                                        />
+                                        <label
+                                            for="sort-price-asc-mobile"
+                                            class="ml-2 block text-xs text-gray-700 cursor-pointer"
+                                            >Harga Termurah</label
+                                        >
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input
+                                            type="radio"
+                                            id="sort-year-desc-mobile"
+                                            value="yearDesc"
+                                            v-model="sortByTemp"
+                                            class="h-4 w-4 text-[#BB0102] focus:ring-[#BB0102] accent-[#BB0102]"
+                                        />
+                                        <label
+                                            for="sort-year-desc-mobile"
+                                            class="ml-2 block text-xs text-gray-700 cursor-pointer"
+                                            >Tahun Terbaru</label
+                                        >
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input
+                                            type="radio"
+                                            id="sort-km-asc-mobile"
+                                            value="kmAsc"
+                                            v-model="sortByTemp"
+                                            class="h-4 w-4 text-[#BB0102] focus:ring-[#BB0102] accent-[#BB0102]"
+                                        />
+                                        <label
+                                            for="sort-km-asc-mobile"
+                                            class="ml-2 block text-xs text-gray-700 cursor-pointer"
+                                            >Km Terendah</label
+                                        >
+                                    </div>
+                                </div>
+
+                                <h3 class="text-sm font-semibold mb-3 border-b border-gray-300 pb-2">
+                                    Transmisi
+                                </h3>
+                                <div class="space-y-2 mb-5">
+                                    <div class="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            id="trans-manual-mobile"
+                                            value="Manual"
+                                            v-model="transmissionTemp"
+                                            class="h-4 w-4 text-[#BB0102] focus:ring-[#BB0102] accent-[#BB0102] rounded"
+                                        />
+                                        <label
+                                            for="trans-manual-mobile"
+                                            class="ml-2 block text-xs text-gray-700 cursor-pointer"
+                                            >Manual</label
+                                        >
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            id="trans-automatic-mobile"
+                                            value="Automatic"
+                                            v-model="transmissionTemp"
+                                            class="h-4 w-4 text-[#BB0102] focus:ring-[#BB0102] accent-[#BB0102] rounded"
+                                        />
+                                        <label
+                                            for="trans-automatic-mobile"
+                                            class="ml-2 block text-xs text-gray-700 cursor-pointer"
+                                            >Automatic</label
+                                        >
+                                    </div>
+                                </div>
+
+                                <h3 class="text-sm font-semibold mb-3 border-b border-gray-300 pb-2">
+                                    Harga
+                                </h3>
+                                <div class="mb-5">
+                                    <p class="text-xs text-gray-600 mb-3">
+                                        Rentang harga dipilih
+                                    </p>
+
+                                    <div class="relative pt-1 px-1 mb-8">
+                                        <div class="relative h-2 bg-gray-200 rounded-full">
+                                            <div
+                                                class="absolute h-full bg-[#BB0102] rounded-full"
+                                                :style="{
+                                                    left:
+                                                        ((minPriceTemp - 25000000) /
+                                                            (2000000000 - 25000000)) *
+                                                            100 +
+                                                        '%',
+                                                    right:
+                                                        100 -
+                                                        ((maxPriceTemp - 25000000) /
+                                                            (2000000000 - 25000000)) *
+                                                            100 +
+                                                        '%',
+                                                }"
+                                            ></div>
+                                        </div>
+
+                                        <input
+                                            type="range"
+                                            :min="25000000"
+                                            :max="2000000000"
+                                            :step="5000000"
+                                            v-model.number="minPriceTemp"
+                                            @input="handleMinPriceChange"
+                                            class="range-slider-min"
+                                        />
+
+                                        <input
+                                            type="range"
+                                            :min="25000000"
+                                            :max="2000000000"
+                                            :step="5000000"
+                                            v-model.number="maxPriceTemp"
+                                            @input="handleMaxPriceChange"
+                                            class="range-slider-max"
+                                        />
+                                    </div>
+
+                                    <div class="flex justify-between mt-4 text-xs font-medium text-gray-700">
+                                        <span>Rp {{ formatPrice(minPriceTemp) }}</span>
+                                        <span>Rp {{ formatPrice(maxPriceTemp) }}</span>
+                                    </div>
+                                </div>
+
+                                <button
+                                    @click="resetFilters"
+                                    class="w-full mb-3 px-4 py-2 bg-white text-[#BB0102] border-2 border-[#BB0102] rounded-md hover:bg-red-50 text-sm font-semibold transition-colors"
+                                >
+                                    Reset Filter
+                                </button>
+
+                                <button
+                                    @click="applyMobileFilters"
+                                    class="w-full px-4 py-2 bg-[#BB0102] text-white rounded-md hover:bg-red-700 text-sm font-semibold transition-colors"
+                                >
+                                    Terapkan Filter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </transition>
+
+                <main>
+                    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
                         <CardMobil
                             v-for="car in filteredAndSortedCars"
                             :key="car.id"
                             :car="car"
-                            class="w-full"
+                            :fullWidth="true"
                         />
                     </div>
 
-                    <!-- Empty State -->
                     <div
                         v-if="filteredAndSortedCars.length === 0"
-                        class="text-center text-gray-500 py-20"
+                        class="text-center text-gray-500 py-12 sm:py-16 md:py-20"
                     >
-                        <p class="text-xl font-semibold">
+                        <p class="text-lg sm:text-xl font-semibold">
                             Mobil tidak ditemukan
                         </p>
-                        <p class="text-sm mt-2">
+                        <p class="text-xs sm:text-sm mt-2">
                             Silakan coba ubah atau reset filter Anda.
                         </p>
                     </div>
@@ -279,6 +449,8 @@ const props = defineProps({
         default: () => [],
     },
 });
+
+const showMobileFilter = ref(false);
 
 const sortByTemp = ref("default");
 const minPriceTemp = ref(25000000);
@@ -366,6 +538,12 @@ const applyFilters = () => {
     minPrice.value = minPriceTemp.value;
     maxPrice.value = maxPriceTemp.value;
     transmission.value = [...transmissionTemp.value];
+};
+
+// Fungsi untuk menerapkan filter mobile (menutup modal juga)
+const applyMobileFilters = () => {
+    applyFilters();
+    showMobileFilter.value = false;
 };
 
 // Fungsi untuk reset filter
@@ -464,5 +642,26 @@ input[type="number"] {
 .range-slider-max::-moz-range-track {
     background: transparent;
     border: none;
+}
+
+/* Modal Animation - Sidebar Style */
+.modal-enter-active,
+.modal-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+    opacity: 0;
+}
+
+.modal-enter-active .absolute.inset-y-0,
+.modal-leave-active .absolute.inset-y-0 {
+    transition: transform 0.3s ease;
+}
+
+.modal-enter-from .absolute.inset-y-0,
+.modal-leave-to .absolute.inset-y-0 {
+    transform: translateX(100%);
 }
 </style>
