@@ -60,7 +60,6 @@ Route::middleware(['auth'])
             ->name('products.update-files');
 
         // Manajemen Review/Ulasan
-            ->name('products.update-files');       // Manajemen Review/Ulasan
         Route::resource('reviews', ReviewController::class);
 
         // Profile
@@ -68,10 +67,4 @@ Route::middleware(['auth'])
         Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     });
-
-        Route::get('/profile', function () {
-            return Inertia::render('Admin/Profile');
-        })->name('profile');
-    }
-);
 
