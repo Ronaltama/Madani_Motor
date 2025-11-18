@@ -15,9 +15,6 @@
                 class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg"
             >
                 {{ $page.props.flash.success }}
-
-                <h2 class="text-2xl font-bold text-gray-900">Profile</h2>
-
             </div>
 
             <!-- Profile Card -->
@@ -209,18 +206,18 @@
                     </div>
 
                 </div>
+                <!-- Close border-t wrapper -->
+                </div>
+                <!-- Close Logout Section wrapper -->
             </div>
         </div>
     </AdminLayout>
 </template>
 
 <script setup>
-
-import { Head, Link, useForm } from "@inertiajs/vue3";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { computed } from "vue";
-import { usePage } from "@inertiajs/vue3";
 
 const page = usePage();
 const user = computed(() => page.props.auth?.user);

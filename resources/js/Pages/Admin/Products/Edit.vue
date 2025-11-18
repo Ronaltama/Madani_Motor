@@ -6,6 +6,15 @@
                 <h2 class="text-2xl font-bold text-gray-900">Edit Produk</h2>
                 <p class="text-gray-600 mt-1">Ubah data produk di bawah</p>
             </div>
+
+            <!-- Error Messages -->
+            <div v-if="Object.keys(form.errors).length > 0" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                <p class="font-semibold mb-2">Terdapat kesalahan:</p>
+                <ul class="list-disc list-inside text-sm">
+                    <li v-for="(error, field) in form.errors" :key="field">{{ error }}</li>
+                </ul>
+            </div>
+
             <form
                 @submit.prevent="submit"
                 class="bg-white rounded-lg shadow p-6 space-y-6"
@@ -76,12 +85,12 @@
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Model</label
+                            >Tipe Registrasi</label
                         >
                         <input
                             v-model="form.tipe"
                             type="text"
-                            placeholder="Masukkan nama Model"
+                            placeholder="Masukkan tipe registrasi (contoh: Sedan, Hatchback)"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
@@ -112,19 +121,32 @@
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Lokasi</label
+                            >Kepemilikan</label
                         >
                         <input
-                            v-model="form.plat_asal"
-                            type="text"
-                            placeholder="Masukkan Lokasi"
+                            v-model.number="form.tangan_ke"
+                            type="number"
+                            min="1"
+                            placeholder="Tangan ke-"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Masa Berlaku</label
+                            >Plat Mobil</label
+                        >
+                        <input
+                            v-model="form.plat_asal"
+                            type="text"
+                            placeholder="Masukkan domisili/plat mobil (contoh: Jakarta)"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                            >Masa Berlaku STNK</label
                         >
                         <input
                             v-model="form.masa_berlaku"
@@ -219,12 +241,12 @@
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Nomor Polisi</label
+                            >No Polisi</label
                         >
                         <input
                             v-model="form.nomor_polisi"
                             type="text"
-                            placeholder="Masukkan nomor polisi"
+                            placeholder="Masukkan nomor polisi (contoh: B 1234 ABC)"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
@@ -639,6 +661,7 @@ const form = useForm({
     deskripsi: props.mobil.deskripsi || "",
     harga: props.mobil.harga || "",
     warna: props.mobil.spesifikasi?.warna || "",
+    tangan_ke: props.mobil.spesifikasi?.tangan_ke || "",
     plat_asal: props.mobil.spesifikasi?.plat_asal || "",
     masa_berlaku: props.mobil.spesifikasi?.masa_berlaku || "",
     kilometer: props.mobil.spesifikasi?.kilometer || "",
@@ -662,9 +685,17 @@ function handleFileUpload(event, field) {
     const file = event.target.files[0];
     if (file) form[field] = file;
 }
+
 function submit() {
     form.post(route("admin.products.update-files", props.mobil.id_mobil), {
         forceFormData: true,
+        onError: (errors) => {
+            console.error('Form submission errors:', errors);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+        onSuccess: () => {
+            console.log('Product updated successfully');
+        }
     });
 }
 </script>

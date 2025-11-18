@@ -9,39 +9,24 @@
                 </h2>
 
                 <form @submit.prevent="submit">
-                    <!-- Pilih Mobil -->
+                    <!-- Input ID Mobil (manual) -->
                     <div class="mb-4">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                            Mobil <span class="text-red-600">*</span>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            ID Mobil <span class="text-red-600">*</span>
                         </label>
-                        <select
-
+                        <input
                             v-model.number="form.id_mobil"
-
-                            v-model="form.id_mobil"
-
+                            type="number"
+                            placeholder="Masukkan ID Mobil (mobil terjual)"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
-                        >
-                            <option value="">Pilih Mobil</option>
-                            <option
-                                v-for="mobil in mobils"
-                                :key="mobil.id_mobil"
-                                :value="mobil.id_mobil"
-                            >
-                                {{ mobil.nama_mobil }} - {{ mobil.merek }}
-                                {{ mobil.varian }}
-                            </option>
-                        </select>
-
-                        <p v-if="selectedMobilInfo" class="text-sm text-gray-600 mt-2">
-                            <strong>Jenis Mobil:</strong> {{ selectedMobilInfo.merek }} | 
-                            <strong>Nama Mobil:</strong> {{ selectedMobilInfo.nama_mobil }}
+                        />
+                        <p v-if="selectedMobilInfo" class="text-xs text-gray-600 mt-2">
+                            <strong>Teridentifikasi:</strong> {{ selectedMobilInfo.nama_mobil }} - {{ selectedMobilInfo.merek }} {{ selectedMobilInfo.varian }}
                         </p>
-
-
+                        <p v-else-if="form.id_mobil" class="text-xs text-red-600 mt-2">
+                            ID mobil tidak ditemukan di daftar aktif.
+                        </p>
                     </div>
 
                     <!-- Nama Pelanggan -->
@@ -73,36 +58,18 @@
                         />
                     </div>
 
-                    <!-- Rating -->
+                    <!-- Rating (single list) -->
                     <div class="mb-4">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             Rating <span class="text-red-600">*</span>
                         </label>
                         <select
-
                             v-model.number="form.rating"
-
-                            v-model="form.rating"
-
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         >
                             <option value="">Pilih Rating</option>
-
-                            <option :value="1">⭐ 1</option>
-                            <option :value="2">⭐ 2</option>
-                            <option :value="3">⭐ 3</option>
-                            <option :value="4">⭐ 4</option>
-                            <option :value="5">⭐ 5</option>
-
-                            <option value="1">⭐ 1</option>
-                            <option value="2">⭐ 2</option>
-                            <option value="3">⭐ 3</option>
-                            <option value="4">⭐ 4</option>
-                            <option value="5">⭐ 5</option>
-
+                            <option v-for="n in 5" :key="n" :value="n">⭐ {{ n }}</option>
                         </select>
                     </div>
 
@@ -206,9 +173,7 @@
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 
-import { ref, computed, watch } from "vue";
-
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 
 const props = defineProps({
@@ -224,16 +189,11 @@ const props = defineProps({
 
 const form = useForm({
     _method: "PUT",
-    id_mobil: props.review.id_mobil || '',
-    nama_pelanggan: props.review.nama_pelanggan || '',
-    tanggal: props.review.tanggal || '',
-    rating: props.review.rating || '',
-    isi_review: props.review.isi_review || '',
-    id_mobil: props.review.id_mobil,
-    nama_pelanggan: props.review.nama_pelanggan,
-    tanggal: props.review.tanggal,
-    rating: props.review.rating,
-    isi_review: props.review.isi_review,
+    id_mobil: props.review.id_mobil || "",
+    nama_pelanggan: props.review.nama_pelanggan || "",
+    tanggal: props.review.tanggal || "",
+    rating: props.review.rating || "",
+    isi_review: props.review.isi_review || "",
     foto_url: null,
 });
 
@@ -251,14 +211,9 @@ function handleFileUpload(event) {
 }
 
 function submit() {
-    // POST with _method field in form data for file upload
-
-    form.post(route('admin.reviews.update', props.review.id_review), {
+    form.post(route("admin.reviews.update", props.review.id_review), {
         forceFormData: true,
         preserveScroll: true,
     });
-
-    form.post(`/admin/reviews/${props.review.id_review}`);
-
 }
 </script>

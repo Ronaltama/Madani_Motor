@@ -13,7 +13,7 @@ protected $table = 'spesifikasi_mobils';
 protected $fillable = [
 'id_mobil', 'tipe', 'bahan_bakar', 'sistem_penggerak', 'transmisi',
 'kilometer', 'plat_asal', 'nomor_polisi', 'masa_berlaku',
-'spare_key', 'toolkit', 'warna'
+'spare_key', 'toolkit', 'warna', 'tangan_ke'
 ];
 
 public function mobil()

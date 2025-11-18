@@ -70,7 +70,7 @@
                         :href="route('home')"
                         class="px-5 py-2 text-gray-800 hover:bg-gray-100 rounded-full font-semibold text-[15px] transition-colors"
                     >
-                        Home
+                        Beranda
                     </Link>
                     <a
                         href="https://wa.me/6298616498342?text=Halo,%20saya%20ingin%20jual%20mobil"
