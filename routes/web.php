@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\ProfileController;
 
 
 use App\Http\Controllers\Auth\AuthController;
-use Inertia\Inertia;
+use Inertia\Inertia; // <-- Pastikan ini ada
 
 // ==========================
 // Public
@@ -19,6 +19,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/compare', [HomeController::class, 'compare'])->name('compare');
 Route::get('/cars', [HomeController::class, 'cars'])->name('cars.index');
 Route::get('/cars/{id}', [HomeController::class, 'show'])->name('cars.show');
+
+Route::get('/jual-mobil', function () {
+    // DIUBAH: 'Publik' menjadi 'Public' agar sesuai nama folder
+    return Inertia::render('Public/JualMobil');
+})->name('jual.mobil');
+
 
 // ==========================
 // Auth
@@ -54,6 +60,7 @@ Route::middleware(['auth'])
             ->name('products.update-files');
 
         // Manajemen Review/Ulasan
+            ->name('products.update-files');       // Manajemen Review/Ulasan
         Route::resource('reviews', ReviewController::class);
 
         // Profile
@@ -61,3 +68,10 @@ Route::middleware(['auth'])
         Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     });
+
+        Route::get('/profile', function () {
+            return Inertia::render('Admin/Profile');
+        })->name('profile');
+    }
+);
+
