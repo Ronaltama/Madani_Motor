@@ -23,8 +23,8 @@ class HomeController extends Controller
                 $imageUrl = asset('images/placeholder-car.png');
                 if ($foto && $foto->full_body) {
                     // If already contains 'mobils/', use as is, otherwise prepend it
-                    $imagePath = str_contains($foto->full_body, 'mobils/') 
-                        ? $foto->full_body 
+                    $imagePath = str_contains($foto->full_body, 'mobils/')
+                        ? $foto->full_body
                         : 'mobils/' . $foto->full_body;
                     $imageUrl = asset('storage/' . $imagePath);
                 }
@@ -42,14 +42,13 @@ class HomeController extends Controller
             });
 
         // Get reviews from database
-        $reviews = ReviewTestimoni::with('mobil')
-            ->get()
+        $reviews = ReviewTestimoni::get()
             ->map(function ($review) {
                 return [
                     'id' => $review->id_review,
-                    'mobil' => $review->mobil ? $review->mobil->nama_mobil : 'Tidak Diketahui',
+                    'mobil' => $review->nama_mobil ?: 'Tidak Diketahui',
                     'namaPelanggan' => $review->nama_pelanggan,
-                    'tanggal' => $review->tanggal ? $review->tanggal->format('d/m/Y') : '',
+                    'tanggal' => $review->tanggal ? \Carbon\Carbon::parse($review->tanggal)->format('d/m/Y') : '',
                     'rating' => $review->rating,
                     'isiUlasan' => $review->isi_review,
                     'foto' => $review->foto_url ? asset($review->foto_url) : asset('images/placeholder-review.jpg'),
@@ -88,8 +87,8 @@ class HomeController extends Controller
             $imageUrl = asset('images/placeholder-car.png');
             if ($foto && $foto->full_body) {
                 // If already contains 'mobils/', use as is, otherwise prepend it
-                $imagePath = str_contains($foto->full_body, 'mobils/') 
-                    ? $foto->full_body 
+                $imagePath = str_contains($foto->full_body, 'mobils/')
+                    ? $foto->full_body
                     : 'mobils/' . $foto->full_body;
                 $imageUrl = asset('storage/' . $imagePath);
             }
@@ -145,7 +144,7 @@ class HomeController extends Controller
                     $path = str_contains($filename, 'mobils/') ? $filename : 'mobils/' . $filename;
                     return asset('storage/' . $path);
                 };
-                
+
                 // Foto wajib
                 if ($foto->full_body) $photos[] = ['url' => $buildUrl($foto->full_body)];
                 if ($foto->foto_depan) $photos[] = ['url' => $buildUrl($foto->foto_depan)];
@@ -168,16 +167,16 @@ class HomeController extends Controller
             ->map(function ($m) {
                 $f = $m->foto->first();
                 $s = $m->spesifikasi;
-                
+
                 // Handle both filename only and full path from database
                 $imageUrl = asset('images/placeholder-car.png');
                 if ($f && $f->full_body) {
-                    $imagePath = str_contains($f->full_body, 'mobils/') 
-                        ? $f->full_body 
+                    $imagePath = str_contains($f->full_body, 'mobils/')
+                        ? $f->full_body
                         : 'mobils/' . $f->full_body;
                     $imageUrl = asset('storage/' . $imagePath);
                 }
-                
+
                 return [
                     'id' => $m->id_mobil,
                     'name' => $m->nama_mobil,

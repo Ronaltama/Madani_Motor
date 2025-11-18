@@ -9,23 +9,22 @@
                 </h2>
 
                 <form @submit.prevent="submit">
-                    <!-- Input ID Mobil (manual) -->
+                    <!-- Nama Mobil -->
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                            ID Mobil <span class="text-red-600">*</span>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                        >
+                            Nama Mobil <span class="text-red-600">*</span>
                         </label>
                         <input
-                            v-model.number="form.id_mobil"
-                            type="number"
-                            placeholder="Masukkan ID Mobil (mobil terjual)"
+                            v-model="form.nama_mobil"
+                            type="text"
+                            placeholder="Masukkan nama mobil yang dibeli customer"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         />
-                        <p v-if="selectedMobilInfo" class="text-xs text-gray-600 mt-2">
-                            <strong>Teridentifikasi:</strong> {{ selectedMobilInfo.nama_mobil }} - {{ selectedMobilInfo.merek }} {{ selectedMobilInfo.varian }}
-                        </p>
-                        <p v-else-if="form.id_mobil" class="text-xs text-red-600 mt-2">
-                            ID mobil tidak ditemukan di daftar aktif.
+                        <p class="text-xs text-gray-600 mt-1">
+                            Contoh: Toyota Fortuner VRZ Putih 2021
                         </p>
                     </div>
 
@@ -60,7 +59,9 @@
 
                     <!-- Rating (single list) -->
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                        >
                             Rating <span class="text-red-600">*</span>
                         </label>
                         <select
@@ -69,7 +70,9 @@
                             required
                         >
                             <option value="">Pilih Rating</option>
-                            <option v-for="n in 5" :key="n" :value="n">⭐ {{ n }}</option>
+                            <option v-for="n in 5" :key="n" :value="n">
+                                ⭐ {{ n }}
+                            </option>
                         </select>
                     </div>
 
@@ -175,21 +178,16 @@ import AdminLayout from "@/Layouts/AdminLayout.vue";
 
 import { ref, computed } from "vue";
 
-
 const props = defineProps({
     review: {
         type: Object,
-        required: true,
-    },
-    mobils: {
-        type: Array,
         required: true,
     },
 });
 
 const form = useForm({
     _method: "PUT",
-    id_mobil: props.review.id_mobil || "",
+    nama_mobil: props.review.nama_mobil || "",
     nama_pelanggan: props.review.nama_pelanggan || "",
     tanggal: props.review.tanggal || "",
     rating: props.review.rating || "",
@@ -198,13 +196,6 @@ const form = useForm({
 });
 
 const fileInput = ref(null);
-
-
-// Computed property to get selected mobil info
-const selectedMobilInfo = computed(() => {
-    if (!form.id_mobil) return null;
-    return props.mobils.find(m => m.id_mobil === form.id_mobil);
-});
 
 function handleFileUpload(event) {
     form.foto_url = event.target.files[0];

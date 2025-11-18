@@ -21,7 +21,6 @@
             <div
                 class="bg-white rounded-lg shadow-sm border border-gray-200 p-8"
             >
-
                 <form @submit.prevent="submit" class="space-y-6">
                     <!-- ID Admin (Read-only) -->
                     <div>
@@ -142,71 +141,50 @@
                 <!-- Logout Section -->
                 <div class="border-t mt-8 pt-8">
                     <h3 class="text-lg font-semibold mb-4">Sesi Login</h3>
-                    <Link
-                        :href="route('logout')"
-                        method="post"
-                        as="button"
-                        class="flex items-center gap-2 px-6 py-2.5 bg-gray-700 hover:bg-gray-800 text-white font-medium rounded-lg transition-colors"
-                    >
-                        <svg
-                            class="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                            />
-                        </svg>
-                        <span>Logout</span>
-                    </Link>
-                <div class="flex flex-col items-center space-y-6">
-                    <!-- Admin Name Section -->
-                    <div class="text-center">
-                        <p class="text-sm text-gray-500 mb-2">Admin Name</p>
-                        <h3 class="text-2xl font-bold text-gray-900">
-                            {{ user?.name || "AdminT" }}
-                        </h3>
-                    </div>
 
-                    <!-- Department Section -->
-                    <div class="text-center">
-                        <p class="text-sm text-gray-500 mb-2">Department</p>
-                        <h3 class="text-xl font-semibold text-gray-900">
-                            Tissen
-                        </h3>
-                    </div>
+                    <div class="flex flex-col items-center space-y-6">
+                        <!-- Admin Name Section -->
+                        <div class="text-center">
+                            <p class="text-sm text-gray-500 mb-2">Admin Name</p>
+                            <h3 class="text-2xl font-bold text-gray-900">
+                                {{ user?.name || "AdminT" }}
+                            </h3>
+                        </div>
 
-                    <!-- Logout Button -->
-                    <div class="pt-6">
-                        <Link
-                            :href="route('logout')"
-                            method="post"
-                            as="button"
-                            class="flex items-center gap-2 px-6 py-2.5 text-gray-700 hover:text-gray-900 transition-colors"
-                        >
-                            <svg
-                                class="w-5 h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
+                        <!-- Department Section -->
+                        <div class="text-center">
+                            <p class="text-sm text-gray-500 mb-2">Department</p>
+                            <h3 class="text-xl font-semibold text-gray-900">
+                                Tissen
+                            </h3>
+                        </div>
+
+                        <!-- Logout Button -->
+                        <div class="pt-6">
+                            <Link
+                                :href="route('logout')"
+                                method="post"
+                                as="button"
+                                class="flex items-center gap-2 px-6 py-2.5 text-gray-700 hover:text-gray-900 transition-colors"
                             >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                                />
-                            </svg>
-                            <span class="font-medium">Logout</span>
-                        </Link>
+                                <svg
+                                    class="w-5 h-5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                    />
+                                </svg>
+                                <span class="font-medium">Logout</span>
+                            </Link>
+                        </div>
                     </div>
-
-                </div>
-                <!-- Close border-t wrapper -->
+                    <!-- Close border-t wrapper -->
                 </div>
                 <!-- Close Logout Section wrapper -->
             </div>
@@ -221,7 +199,6 @@ import { computed } from "vue";
 
 const page = usePage();
 const user = computed(() => page.props.auth?.user);
-
 
 const form = useForm({
     nama: user.value?.nama || "",
@@ -239,5 +216,4 @@ function submit() {
         },
     });
 }
-
 </script>

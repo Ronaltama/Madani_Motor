@@ -93,12 +93,9 @@
                         >
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
-                                    {{ review.mobil?.nama_mobil || "-" }}
+                                    {{ review.nama_mobil || "-" }}
                                 </div>
-                                <div class="text-xs text-gray-500">
-                                    {{ review.mobil?.merek || "" }}
-                                    {{ review.mobil?.varian || "" }}
-                                </div>
+                                <div class="text-xs text-gray-500">-</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">
