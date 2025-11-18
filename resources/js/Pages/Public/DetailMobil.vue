@@ -432,7 +432,7 @@
                             <div
                                 class="flex justify-between items-center py-2 sm:py-3 border-b border-gray-200 text-xs sm:text-sm"
                             >
-                                <span class="text-gray-600">Plat Mobil</span>
+                                <span class="text-gray-600">Lokasi</span>
                                 <span class="font-semibold text-right">{{
                                     car.domisili
                                 }}</span>

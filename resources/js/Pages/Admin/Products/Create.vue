@@ -8,6 +8,20 @@
                     Lengkapi form di bawah untuk menambah produk baru
                 </p>
             </div>
+
+            <!-- Error Messages -->
+            <div
+                v-if="Object.keys(form.errors).length > 0"
+                class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg"
+            >
+                <p class="font-semibold mb-2">Terdapat kesalahan:</p>
+                <ul class="list-disc list-inside text-sm">
+                    <li v-for="(error, field) in form.errors" :key="field">
+                        {{ error }}
+                    </li>
+                </ul>
+            </div>
+
             <form
                 @submit.prevent="submit"
                 class="bg-white rounded-lg shadow p-6 space-y-6"
@@ -16,19 +30,26 @@
                     <div class="md:col-span-2">
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Judul</label
+                            >Judul <span class="text-red-600">*</span></label
                         >
                         <input
                             v-model="form.nama_mobil"
                             type="text"
                             placeholder="Masukkan Judul"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            required
                         />
+                        <p
+                            v-if="form.errors.nama_mobil"
+                            class="text-red-600 text-sm mt-1"
+                        >
+                            {{ form.errors.nama_mobil }}
+                        </p>
                     </div>
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Kondisi</label
+                            >Kondisi <span class="text-red-600">*</span></label
                         >
                         <div class="flex gap-4">
                             <label class="flex items-center cursor-pointer">
@@ -50,6 +71,12 @@
                                 <span class="ml-2 text-sm">Bekas</span>
                             </label>
                         </div>
+                        <p
+                            v-if="form.errors.kondisi"
+                            class="text-red-600 text-sm mt-1"
+                        >
+                            {{ form.errors.kondisi }}
+                        </p>
                     </div>
                     <div>
                         <label
@@ -62,28 +89,41 @@
                             placeholder="Masukkan Tahun"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
+                        <p
+                            v-if="form.errors.tahun"
+                            class="text-red-600 text-sm mt-1"
+                        >
+                            {{ form.errors.tahun }}
+                        </p>
                     </div>
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Merek</label
+                            >Merek <span class="text-red-600">*</span></label
                         >
                         <input
                             v-model="form.merek"
                             type="text"
                             placeholder="Masukkan nama merek"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                            required
                         />
+                        <p
+                            v-if="form.errors.merek"
+                            class="text-red-600 text-sm mt-1"
+                        >
+                            {{ form.errors.merek }}
+                        </p>
                     </div>
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Model</label
+                            >Tipe Registrasi</label
                         >
                         <input
                             v-model="form.tipe"
                             type="text"
-                            placeholder="Masukkan nama Model"
+                            placeholder="Masukkan tipe registrasi (contoh: Sedan, Hatchback)"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
@@ -114,19 +154,32 @@
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Lokasi</label
+                            >Kepemilikan</label
                         >
                         <input
-                            v-model="form.plat_asal"
-                            type="text"
-                            placeholder="Masukkan Lokasi"
+                            v-model.number="form.tangan_ke"
+                            type="number"
+                            min="1"
+                            placeholder="Tangan ke-"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Masa Berlaku</label
+                            >Plat Mobil</label
+                        >
+                        <input
+                            v-model="form.plat_asal"
+                            type="text"
+                            placeholder="Masukkan domisili/plat mobil (contoh: Jakarta)"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                            >Masa Berlaku STNK</label
                         >
                         <input
                             v-model="form.masa_berlaku"
@@ -151,24 +204,28 @@
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Tipe Penjual</label
                         >
-                        <input
+                        <select
                             v-model="form.tipe_penjual"
-                            type="text"
-                            placeholder="Masukkan tipe penjual"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                        />
+                        >
+                            <option value="">Pilih Tipe Penjual</option>
+                            <option value="Perorangan">Perorangan</option>
+                            <option value="Dealer">Dealer</option>
+                        </select>
                     </div>
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Transmisi</label
                         >
-                        <input
+                        <select
                             v-model="form.transmisi"
-                            type="text"
-                            placeholder="Masukkan Transmisi"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                        />
+                        >
+                            <option value="">Pilih Transmisi</option>
+                            <option value="Manual">Manual</option>
+                            <option value="Automatic">Automatic</option>
+                        </select>
                     </div>
                     <div>
                         <label
@@ -187,12 +244,15 @@
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Bahan Bakar</label
                         >
-                        <input
+                        <select
                             v-model="form.bahan_bakar"
-                            type="text"
-                            placeholder="Masukkan bahan bakar"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                        />
+                        >
+                            <option value="">Pilih Bahan Bakar</option>
+                            <option value="Bensin">Bensin</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Hybrid">Hybrid</option>
+                        </select>
                     </div>
                     <div>
                         <label
@@ -211,22 +271,24 @@
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Spare Key</label
                         >
-                        <input
+                        <select
                             v-model="form.spare_key"
-                            type="text"
-                            placeholder="Masukkan spare key"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                        />
+                        >
+                            <option value="">Pilih Status Spare Key</option>
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak ada">Tidak ada</option>
+                        </select>
                     </div>
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
-                            >Nomor Polisi</label
+                            >No Polisi</label
                         >
                         <input
                             v-model="form.nomor_polisi"
                             type="text"
-                            placeholder="Masukkan nomor polisi"
+                            placeholder="Masukkan nomor polisi (contoh: B 1234 ABC)"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
                         />
                     </div>
@@ -235,12 +297,14 @@
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Toolkit</label
                         >
-                        <input
+                        <select
                             v-model="form.toolkit"
-                            type="text"
-                            placeholder="Masukkan toolkit"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                        />
+                        >
+                            <option value="">Pilih Status Toolkit</option>
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak ada">Tidak ada</option>
+                        </select>
                     </div>
                     <div class="md:col-span-2">
                         <label
@@ -519,6 +583,7 @@ const form = useForm({
     deskripsi: "",
     harga: "",
     warna: "",
+    tangan_ke: "",
     plat_asal: "",
     masa_berlaku: "",
     kilometer: "",
@@ -542,7 +607,18 @@ function handleFileUpload(event, field) {
     const file = event.target.files[0];
     if (file) form[field] = file;
 }
+
 function submit() {
-    form.post(route("admin.products.store"), { forceFormData: true });
+    form.post(route("admin.products.store"), {
+        forceFormData: true,
+        onError: (errors) => {
+            console.error("Form submission errors:", errors);
+            // Scroll to top to show error message
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        },
+        onSuccess: () => {
+            console.log("Product created successfully");
+        },
+    });
 }
 </script>

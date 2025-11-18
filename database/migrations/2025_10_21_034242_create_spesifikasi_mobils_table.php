@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('spare_key')->nullable();
             $table->string('toolkit')->nullable();
             $table->string('warna')->nullable();
+            $table->unsignedTinyInteger('tangan_ke')->nullable(); // Tangan ke (1,2,3,dst)
             $table->timestamps();
         });
     }

@@ -9,39 +9,23 @@
                 </h2>
 
                 <form @submit.prevent="submit">
-                    <!-- Pilih Mobil -->
+                    <!-- Nama Mobil -->
                     <div class="mb-4">
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
                         >
-                            Mobil <span class="text-red-600">*</span>
+                            Nama Mobil <span class="text-red-600">*</span>
                         </label>
-                        <select
-
-                            v-model.number="form.id_mobil"
-
-                            v-model="form.id_mobil"
-
+                        <input
+                            v-model="form.nama_mobil"
+                            type="text"
+                            placeholder="Masukkan nama mobil yang dibeli customer"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
-                        >
-                            <option value="">Pilih Mobil</option>
-                            <option
-                                v-for="mobil in mobils"
-                                :key="mobil.id_mobil"
-                                :value="mobil.id_mobil"
-                            >
-                                {{ mobil.nama_mobil }} - {{ mobil.merek }}
-                                {{ mobil.varian }}
-                            </option>
-                        </select>
-
-                        <p v-if="selectedMobilInfo" class="text-sm text-gray-600 mt-2">
-                            <strong>Jenis Mobil:</strong> {{ selectedMobilInfo.merek }} | 
-                            <strong>Nama Mobil:</strong> {{ selectedMobilInfo.nama_mobil }}
+                        />
+                        <p class="text-xs text-gray-600 mt-1">
+                            Contoh: Toyota Fortuner VRZ Putih 2021
                         </p>
-
-
                     </div>
 
                     <!-- Nama Pelanggan -->
@@ -73,7 +57,7 @@
                         />
                     </div>
 
-                    <!-- Rating -->
+                    <!-- Rating (single list) -->
                     <div class="mb-4">
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
@@ -81,28 +65,14 @@
                             Rating <span class="text-red-600">*</span>
                         </label>
                         <select
-
                             v-model.number="form.rating"
-
-                            v-model="form.rating"
-
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         >
                             <option value="">Pilih Rating</option>
-
-                            <option :value="1">⭐ 1</option>
-                            <option :value="2">⭐ 2</option>
-                            <option :value="3">⭐ 3</option>
-                            <option :value="4">⭐ 4</option>
-                            <option :value="5">⭐ 5</option>
-
-                            <option value="1">⭐ 1</option>
-                            <option value="2">⭐ 2</option>
-                            <option value="3">⭐ 3</option>
-                            <option value="4">⭐ 4</option>
-                            <option value="5">⭐ 5</option>
-
+                            <option v-for="n in 5" :key="n" :value="n">
+                                ⭐ {{ n }}
+                            </option>
                         </select>
                     </div>
 
@@ -206,59 +176,35 @@
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 
-import { ref, computed, watch } from "vue";
-
-import { ref } from "vue";
-
+import { ref, computed } from "vue";
 
 const props = defineProps({
     review: {
         type: Object,
         required: true,
     },
-    mobils: {
-        type: Array,
-        required: true,
-    },
 });
 
 const form = useForm({
     _method: "PUT",
-    id_mobil: props.review.id_mobil || '',
-    nama_pelanggan: props.review.nama_pelanggan || '',
-    tanggal: props.review.tanggal || '',
-    rating: props.review.rating || '',
-    isi_review: props.review.isi_review || '',
-    id_mobil: props.review.id_mobil,
-    nama_pelanggan: props.review.nama_pelanggan,
-    tanggal: props.review.tanggal,
-    rating: props.review.rating,
-    isi_review: props.review.isi_review,
+    nama_mobil: props.review.nama_mobil || "",
+    nama_pelanggan: props.review.nama_pelanggan || "",
+    tanggal: props.review.tanggal || "",
+    rating: props.review.rating || "",
+    isi_review: props.review.isi_review || "",
     foto_url: null,
 });
 
 const fileInput = ref(null);
-
-
-// Computed property to get selected mobil info
-const selectedMobilInfo = computed(() => {
-    if (!form.id_mobil) return null;
-    return props.mobils.find(m => m.id_mobil === form.id_mobil);
-});
 
 function handleFileUpload(event) {
     form.foto_url = event.target.files[0];
 }
 
 function submit() {
-    // POST with _method field in form data for file upload
-
-    form.post(route('admin.reviews.update', props.review.id_review), {
+    form.post(route("admin.reviews.update", props.review.id_review), {
         forceFormData: true,
         preserveScroll: true,
     });
-
-    form.post(`/admin/reviews/${props.review.id_review}`);
-
 }
 </script>

@@ -9,32 +9,23 @@
                 </h2>
 
                 <form @submit.prevent="submit">
-                    <!-- Pilih Mobil -->
+                    <!-- Nama Mobil -->
                     <div class="mb-4">
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
                         >
-                            Mobil <span class="text-red-600">*</span>
+                            Nama Mobil <span class="text-red-600">*</span>
                         </label>
-                        <select
-
-                            v-model.number="form.id_mobil"
-
-                            v-model="form.id_mobil"
-
+                        <input
+                            v-model="form.nama_mobil"
+                            type="text"
+                            placeholder="Masukkan nama mobil yang dibeli customer"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
-                        >
-                            <option value="">Pilih Mobil</option>
-                            <option
-                                v-for="mobil in mobils"
-                                :key="mobil.id_mobil"
-                                :value="mobil.id_mobil"
-                            >
-                                {{ mobil.nama_mobil }} - {{ mobil.merek }}
-                                {{ mobil.varian }}
-                            </option>
-                        </select>
+                        />
+                        <p class="text-xs text-gray-600 mt-1">
+                            Contoh: Toyota Fortuner VRZ Putih 2021
+                        </p>
                     </div>
 
                     <!-- Nama Pelanggan -->
@@ -66,7 +57,7 @@
                         />
                     </div>
 
-                    <!-- Rating -->
+                    <!-- Rating (single list) -->
                     <div class="mb-4">
                         <label
                             class="block text-sm font-medium text-gray-700 mb-2"
@@ -74,27 +65,14 @@
                             Rating <span class="text-red-600">*</span>
                         </label>
                         <select
-
                             v-model.number="form.rating"
-
-                            v-model="form.rating"
                             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         >
                             <option value="">Pilih Rating</option>
-
-                            <option :value="1">⭐ 1</option>
-                            <option :value="2">⭐ 2</option>
-                            <option :value="3">⭐ 3</option>
-                            <option :value="4">⭐ 4</option>
-                            <option :value="5">⭐ 5</option>
-
-                            <option value="1">⭐ 1</option>
-                            <option value="2">⭐ 2</option>
-                            <option value="3">⭐ 3</option>
-                            <option value="4">⭐ 4</option>
-                            <option value="5">⭐ 5</option>
-
+                            <option v-for="n in 5" :key="n" :value="n">
+                                ⭐ {{ n }}
+                            </option>
                         </select>
                     </div>
 
@@ -182,15 +160,10 @@ import { Head, Link, useForm } from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { ref } from "vue";
 
-const props = defineProps({
-    mobils: {
-        type: Array,
-        required: true,
-    },
-});
+// Tidak perlu props mobils lagi karena menggunakan nama_mobil langsung
 
 const form = useForm({
-    id_mobil: "",
+    nama_mobil: "",
     nama_pelanggan: "",
     tanggal: "",
     rating: "",
@@ -205,13 +178,9 @@ function handleFileUpload(event) {
 }
 
 function submit() {
-
     form.post(route("admin.reviews.store"), {
         forceFormData: true,
         preserveScroll: true,
     });
-
-    form.post(route("admin.reviews.store"));
-
 }
 </script>

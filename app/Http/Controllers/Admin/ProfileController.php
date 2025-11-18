@@ -15,7 +15,11 @@ class ProfileController extends Controller
         $user = Auth::user();
         
         return Inertia::render('Admin/Profile', [
-            'user' => $user
+            'user' => [
+                'id_admin' => $user->id_admin,
+                'nama' => $user->nama,
+                'email' => $user->email,
+            ]
         ]);
     }
 

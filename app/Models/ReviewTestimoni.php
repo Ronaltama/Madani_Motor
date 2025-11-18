@@ -12,17 +12,18 @@ use HasFactory;
 protected $table = 'review_testimonis';
 protected $primaryKey = 'id_review';
 protected $fillable = [
-	'id_mobil', 'nama_pelanggan', 'tanggal', 'isi_review', 'rating', 'foto_url'
+	'nama_mobil', 'nama_pelanggan', 'tanggal', 'isi_review', 'rating', 'foto_url'
 ];
 
 protected $casts = [
 	'tanggal' => 'date',
 ];
 
-public function mobil()
-{
-return $this->belongsTo(Mobil::class, 'id_mobil');
-}
+// Tidak perlu relasi ke mobil karena menggunakan nama_mobil sebagai string
+// public function mobil()
+// {
+// return $this->belongsTo(Mobil::class, 'id_mobil');
+// }
 
 public function logs()
 {

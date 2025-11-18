@@ -9,7 +9,11 @@
             <!-- Hubungi Kami Section -->
             <div class="text-center mb-6">
                 <h3 class="text-sm font-semibold mb-2">Hubungi Kami</h3>
-                <div class="flex items-center justify-center gap-2">
+                <a
+                    href="https://wa.me/6298616498342"
+                    target="_blank"
+                    class="flex items-center justify-center gap-2 hover:text-green-400 transition-colors"
+                >
                     <svg
                         class="w-4 h-4"
                         fill="currentColor"
@@ -22,7 +26,7 @@
                     <span class="text-xs text-gray-300"
                         >Whatsapp: (+62) 986 1649 8342</span
                     >
-                </div>
+                </a>
             </div>
 
             <!-- Alamat Section -->

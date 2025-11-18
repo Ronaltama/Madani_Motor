@@ -347,6 +347,8 @@
                         @click="toggleSidebar"
                         class="flex items-center px-6 py-3 text-gray-800 hover:bg-gray-100 transition-colors"
                     >
+                        Beranda
+
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5 mr-4 text-gray-600"
@@ -362,6 +364,7 @@
                             />
                         </svg>
                         <span class="font-semibold">Home</span>
+
                     </Link>
 
                     <Link
