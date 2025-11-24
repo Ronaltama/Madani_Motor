@@ -197,4 +197,4 @@ const compareStore = useCompareStore();
 .overflow-x-auto::-webkit-scrollbar-thumb:hover {
     background: rgba(190, 188, 189, 0.5);
 }
-</style>
+</style>r

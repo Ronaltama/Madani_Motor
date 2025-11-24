@@ -2,27 +2,27 @@
     <Head title="Dashboard Admin" />
 
     <AdminLayout>
-        <div class="space-y-6">
+        <div class="space-y-4 sm:space-y-6">
             <!-- Welcome Section -->
             <div>
-                <h2 class="text-2xl font-bold text-gray-900">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-900">
                     Dashboard Admin
                 </h2>
-                <p class="text-gray-600 mt-1">
+                <p class="text-sm sm:text-base text-gray-600 mt-1">
                     Selamat datang di panel Madani Motor
                 </p>
             </div>
 
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 <!-- Total Produk -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-lg shadow-md p-4 sm:p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-600 text-sm mb-1">
+                            <p class="text-gray-600 text-xs sm:text-sm mb-1">
                                 Total produk
                             </p>
-                            <p class="text-3xl font-bold text-gray-900">
+                            <p class="text-2xl sm:text-3xl font-bold text-gray-900">
                                 {{ stats.totalProduk }}
                             </p>
                             <p class="text-xs text-gray-500 mt-1">
@@ -30,10 +30,10 @@
                             </p>
                         </div>
                         <div
-                            class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center"
+                            class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0"
                         >
                             <svg
-                                class="w-6 h-6 text-blue-600"
+                                class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -50,20 +50,20 @@
                 </div>
 
                 <!-- Review -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-lg shadow-md p-4 sm:p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-600 text-sm mb-1">Review</p>
-                            <p class="text-3xl font-bold text-gray-900">
+                            <p class="text-gray-600 text-xs sm:text-sm mb-1">Review</p>
+                            <p class="text-2xl sm:text-3xl font-bold text-gray-900">
                                 {{ stats.totalReview }}
                             </p>
                             <p class="text-xs text-gray-500 mt-1">Ulasan</p>
                         </div>
                         <div
-                            class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center"
+                            class="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0"
                         >
                             <svg
-                                class="w-6 h-6 text-yellow-600"
+                                class="w-5 h-5 sm:w-6 sm:h-6 text-yellow-600"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -80,13 +80,13 @@
                 </div>
 
                 <!-- Log Aktivitas -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-lg shadow-md p-4 sm:p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-600 text-sm mb-1">
+                            <p class="text-gray-600 text-xs sm:text-sm mb-1">
                                 Log aktivitas
                             </p>
-                            <p class="text-3xl font-bold text-gray-900">
+                            <p class="text-2xl sm:text-3xl font-bold text-gray-900">
                                 {{ stats.totalAktivitas }}
                             </p>
                             <p class="text-xs text-gray-500 mt-1">
@@ -94,10 +94,10 @@
                             </p>
                         </div>
                         <div
-                            class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center"
+                            class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0"
                         >
                             <svg
-                                class="w-6 h-6 text-green-600"
+                                class="w-5 h-5 sm:w-6 sm:h-6 text-green-600"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -114,20 +114,20 @@
                 </div>
 
                 <!-- Admin -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-lg shadow-md p-4 sm:p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-gray-600 text-sm mb-1">Admin</p>
-                            <p class="text-3xl font-bold text-gray-900">
+                            <p class="text-gray-600 text-xs sm:text-sm mb-1">Admin</p>
+                            <p class="text-2xl sm:text-3xl font-bold text-gray-900">
                                 {{ stats.totalAdmin }}
                             </p>
                             <p class="text-xs text-gray-500 mt-1">Admin</p>
                         </div>
                         <div
-                            class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center"
+                            class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0"
                         >
                             <svg
-                                class="w-6 h-6 text-purple-600"
+                                class="w-5 h-5 sm:w-6 sm:h-6 text-purple-600"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -146,20 +146,20 @@
 
             <!-- Quick Actions -->
             <div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
                     Quick Action
                 </h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     <!-- Tambah Produk -->
                     <Link
                         :href="route('admin.products.create')"
-                        class="bg-blue-500 hover:bg-blue-600 text-white rounded-lg p-6 flex items-center gap-4 transition-colors"
+                        class="bg-blue-500 hover:bg-blue-600 text-white rounded-lg p-4 sm:p-6 flex items-center gap-3 sm:gap-4 transition-colors"
                     >
                         <div
-                            class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center"
+                            class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0"
                         >
                             <svg
-                                class="w-6 h-6"
+                                class="w-5 h-5 sm:w-6 sm:h-6"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -173,8 +173,8 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="font-bold text-lg">Tambah Produk Baru</p>
-                            <p class="text-sm text-blue-100">
+                            <p class="font-bold text-base sm:text-lg">Tambah Produk Baru</p>
+                            <p class="text-xs sm:text-sm text-blue-100">
                                 Input produk baru
                             </p>
                         </div>
@@ -183,13 +183,13 @@
                     <!-- Kelola Review -->
                     <Link
                         :href="route('admin.reviews.index')"
-                        class="bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg p-6 flex items-center gap-4 transition-colors"
+                        class="bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg p-4 sm:p-6 flex items-center gap-3 sm:gap-4 transition-colors"
                     >
                         <div
-                            class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center"
+                            class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0"
                         >
                             <svg
-                                class="w-6 h-6"
+                                class="w-5 h-5 sm:w-6 sm:h-6"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -203,8 +203,8 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="font-bold text-lg">Kelola review</p>
-                            <p class="text-sm text-yellow-100">
+                            <p class="font-bold text-base sm:text-lg">Kelola review</p>
+                            <p class="text-xs sm:text-sm text-yellow-100">
                                 Manage reviews
                             </p>
                         </div>
@@ -213,13 +213,13 @@
                     <!-- Lihat Log -->
                     <Link
                         :href="route('admin.log-aktivitas')"
-                        class="bg-green-500 hover:bg-green-600 text-white rounded-lg p-6 flex items-center gap-4 transition-colors"
+                        class="bg-green-500 hover:bg-green-600 text-white rounded-lg p-4 sm:p-6 flex items-center gap-3 sm:gap-4 transition-colors md:col-span-2 lg:col-span-1"
                     >
                         <div
-                            class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center"
+                            class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0"
                         >
                             <svg
-                                class="w-6 h-6"
+                                class="w-5 h-5 sm:w-6 sm:h-6"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -233,8 +233,8 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="font-bold text-lg">Lihat Log Aktivitas</p>
-                            <p class="text-sm text-green-100">
+                            <p class="font-bold text-base sm:text-lg">Lihat Log Aktivitas</p>
+                            <p class="text-xs sm:text-sm text-green-100">
                                 Validasi aktivitas terbaru
                             </p>
                         </div>
@@ -243,30 +243,30 @@
             </div>
 
             <!-- Aktivitas Terbaru -->
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-xl font-bold text-gray-900 mb-4">
+            <div class="bg-white rounded-lg shadow-md p-4 sm:p-6">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
                     Aktivitas terbaru
                 </h3>
                 <div
                     v-if="aktivitasTerbaru && aktivitasTerbaru.length > 0"
-                    class="space-y-3"
+                    class="space-y-2 sm:space-y-3"
                 >
                     <div
                         v-for="log in aktivitasTerbaru"
                         :key="log.id_log"
-                        class="bg-blue-50 rounded-lg p-4 flex items-center justify-between"
+                        class="bg-blue-50 rounded-lg p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
                     >
                         <div>
-                            <p class="text-gray-900 font-medium">
+                            <p class="text-sm sm:text-base text-gray-900 font-medium">
                                 {{ log.aktivitas }}
                             </p>
                         </div>
-                        <div class="text-sm text-gray-600">
+                        <div class="text-xs sm:text-sm text-gray-600">
                             {{ formatDate(log.created_at) }}
                         </div>
                     </div>
                 </div>
-                <div v-else class="text-center py-8 text-gray-500">
+                <div v-else class="text-center py-6 sm:py-8 text-sm sm:text-base text-gray-500">
                     Belum ada aktivitas tercatat
                 </div>
             </div>

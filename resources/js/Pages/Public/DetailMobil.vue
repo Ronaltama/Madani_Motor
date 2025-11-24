@@ -340,6 +340,22 @@
                             <div
                                 class="flex justify-between items-center py-2 sm:py-3 border-b border-gray-200 text-xs sm:text-sm"
                             >
+                                <span class="text-gray-600">Merek</span>
+                                <span class="font-semibold text-right">{{
+                                    car.merek || "N/A"
+                                }}</span>
+                            </div>
+                            <div
+                                class="flex justify-between items-center py-2 sm:py-3 border-b border-gray-200 text-xs sm:text-sm"
+                            >
+                                <span class="text-gray-600">Varian</span>
+                                <span class="font-semibold text-right">{{
+                                    car.varian || "N/A"
+                                }}</span>
+                            </div>
+                            <div
+                                class="flex justify-between items-center py-2 sm:py-3 border-b border-gray-200 text-xs sm:text-sm"
+                            >
                                 <span class="text-gray-600"
                                     >Jenis Bahan Bakar</span
                                 >
@@ -424,7 +440,7 @@
                             <div
                                 class="flex justify-between items-center py-2 sm:py-3 border-b border-gray-200 text-xs sm:text-sm"
                             >
-                                <span class="text-gray-600">No Polisi</span>
+                                <span class="text-gray-600">Kode Plat Wilayah Registrasi Kendaraan</span>
                                 <span class="font-semibold text-right">{{
                                     car.noPolisi
                                 }}</span>

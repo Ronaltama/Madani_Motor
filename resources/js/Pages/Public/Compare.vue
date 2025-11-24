@@ -400,7 +400,7 @@
                                         {{ car.tipe || "-" }}
                                     </td>
                                 </tr>
-                                <tr class="hover:bg-gray-50">
+                                <tr class="border-b hover:bg-gray-50">
                                     <td
                                         class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
                                     >
@@ -412,6 +412,92 @@
                                         class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
                                     >
                                         {{ car.sistemPenggerak || "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
+                                    >
+                                        Warna
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
+                                    >
+                                        {{ car.warna || "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
+                                    >
+                                        Kepemilikan
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
+                                    >
+                                        {{ car.tanganKe ? "Tangan ke-" + car.tanganKe : "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
+                                    >
+                                        Masa Berlaku STNK
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
+                                    >
+                                        {{ car.stnkValid || "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
+                                    >
+                                        Kode Plat Wilayah Registrasi Kendaraan
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
+                                    >
+                                        {{ car.noPolisi || "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
+                                    >
+                                        Lokasi
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
+                                    >
+                                        {{ car.domisili || "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
+                                    >
+                                        Deskripsi
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm md:text-base"
+                                    >
+                                        <div class="max-h-24 overflow-y-auto text-gray-700">
+                                            {{ car.deskripsi || "-" }}
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

@@ -2,20 +2,20 @@
     <Head title="Manajemen Ulasan" />
 
     <AdminLayout>
-        <div class="space-y-6">
+        <div class="space-y-4 sm:space-y-6">
             <!-- Header -->
-            <div class="flex justify-between items-center">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-900">
+                    <h2 class="text-xl sm:text-2xl font-bold text-gray-900">
                         Manajemen Ulasan
                     </h2>
-                    <p class="text-gray-600 mt-1">
+                    <p class="text-sm sm:text-base text-gray-600 mt-1">
                         Kelola ulasan dan testimoni pelanggan
                     </p>
                 </div>
                 <Link
                     :href="route('admin.reviews.create')"
-                    class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+                    class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors text-sm sm:text-base w-full sm:w-auto"
                 >
                     <svg
                         class="w-5 h-5"
@@ -34,68 +34,45 @@
                 </Link>
             </div>
 
-            <!-- Table Reviews -->
-            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <!-- Desktop Table View -->
+            <div class="hidden lg:block bg-white rounded-lg shadow-sm overflow-hidden">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Mobil
                             </th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Pelanggan
                             </th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Rating
                             </th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Ulasan
                             </th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Foto
                             </th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Tanggal
                             </th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Aksi
                             </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         <tr v-if="reviews.length === 0">
-                            <td
-                                colspan="7"
-                                class="px-6 py-8 text-center text-gray-500"
-                            >
-                                Belum ada ulasan. Klik "Tambah Ulasan" untuk
-                                menambahkan ulasan pertama.
+                            <td colspan="7" class="px-6 py-8 text-center text-gray-500">
+                                Belum ada ulasan. Klik "Tambah Ulasan" untuk menambahkan ulasan pertama.
                             </td>
                         </tr>
-                        <tr
-                            v-for="review in reviews"
-                            :key="review.id_review"
-                            class="hover:bg-gray-50"
-                        >
+                        <tr v-for="review in reviews" :key="review.id_review" class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
                                     {{ review.nama_mobil || "-" }}
                                 </div>
-                                <div class="text-xs text-gray-500">-</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">
@@ -104,57 +81,29 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center gap-1">
-                                    <span
-                                        v-for="i in 5"
-                                        :key="i"
-                                        class="text-yellow-400"
-                                    >
+                                    <span v-for="i in 5" :key="i" class="text-yellow-400">
                                         {{ i <= review.rating ? "★" : "☆" }}
                                     </span>
                                 </div>
                             </td>
                             <td class="px-6 py-4">
-                                <div
-                                    class="text-sm text-gray-900 max-w-md truncate"
-                                >
+                                <div class="text-sm text-gray-900 max-w-md truncate">
                                     {{ review.isi_review }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div
-                                    v-if="review.foto_url"
-                                    class="w-16 h-16 rounded overflow-hidden"
-                                >
-                                    <img
-                                        :src="review.foto_url"
-                                        alt="Foto"
-                                        class="w-full h-full object-cover"
-                                    />
+                                <div v-if="review.foto_url" class="w-16 h-16 rounded overflow-hidden">
+                                    <img :src="review.foto_url" alt="Foto" class="w-full h-full object-cover" />
                                 </div>
-                                <span v-else class="text-gray-400 text-xs"
-                                    >-</span
-                                >
+                                <span v-else class="text-gray-400 text-xs">-</span>
                             </td>
-                            <td
-                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                            >
-                                {{
-                                    formatDate(
-                                        review.tanggal || review.created_at
-                                    )
-                                }}
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ formatDate(review.tanggal || review.created_at) }}
                             </td>
-                            <td
-                                class="px-6 py-4 whitespace-nowrap text-sm font-medium"
-                            >
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex items-center gap-2">
                                     <Link
-                                        :href="
-                                            route(
-                                                'admin.reviews.edit',
-                                                review.id_review
-                                            )
-                                        "
+                                        :href="route('admin.reviews.edit', review.id_review)"
                                         class="text-blue-600 hover:text-blue-900"
                                     >
                                         Edit
@@ -172,7 +121,57 @@
                 </table>
             </div>
 
-            <div class="text-sm text-gray-500">
+            <!-- Mobile Card View -->
+            <div class="lg:hidden space-y-3">
+                <div v-if="reviews.length === 0" class="bg-white rounded-lg shadow-sm p-6 text-center text-gray-500">
+                    Belum ada ulasan. Klik "Tambah Ulasan" untuk menambahkan ulasan pertama.
+                </div>
+                <div v-for="review in reviews" :key="review.id_review" class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="space-y-3">
+                        <!-- Header with Photo -->
+                        <div class="flex items-start gap-3">
+                            <div v-if="review.foto_url" class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                                <img :src="review.foto_url" alt="Foto" class="w-full h-full object-cover" />
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-semibold text-gray-900 text-sm truncate">{{ review.nama_mobil || "-" }}</h3>
+                                <p class="text-sm text-gray-600">{{ review.nama_pelanggan }}</p>
+                                <div class="flex items-center gap-1 mt-1">
+                                    <span v-for="i in 5" :key="i" class="text-yellow-400 text-sm">
+                                        {{ i <= review.rating ? "★" : "☆" }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review Text -->
+                        <p class="text-sm text-gray-900 line-clamp-3">{{ review.isi_review }}</p>
+
+                        <!-- Date -->
+                        <p class="text-xs text-gray-500">
+                            {{ formatDate(review.tanggal || review.created_at) }}
+                        </p>
+
+                        <!-- Actions -->
+                        <div class="flex gap-2 pt-3 border-t">
+                            <Link
+                                :href="route('admin.reviews.edit', review.id_review)"
+                                class="flex-1 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg text-center text-sm font-medium hover:bg-blue-100 transition-colors"
+                            >
+                                Edit
+                            </Link>
+                            <button
+                                @click="deleteReview(review)"
+                                class="flex-1 px-3 py-2 bg-red-50 text-red-600 rounded-lg text-center text-sm font-medium hover:bg-red-100 transition-colors"
+                            >
+                                Hapus
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-xs sm:text-sm text-gray-500">
                 Total: {{ reviews.length }} ulasan
             </div>
         </div>
