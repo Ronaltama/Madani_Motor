@@ -236,20 +236,17 @@
                     </h3>
                     
                     <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
-                        <table
-                            class="min-w-full bg-white border border-gray-200 rounded-lg"
-                        >
+                        <table class="min-w-full bg-white border border-gray-200 rounded-lg">
                             <thead class="bg-[#FFF5F5]">
                                 <tr>
-                                    <th
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left font-bold text-gray-900 border-b-2 border-[#BB0102] text-xs sm:text-sm md:text-base sticky left-0 bg-[#FFF5F5] z-10"
-                                    >
+                                    <th class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left font-bold text-gray-900 border-b-2 border-[#BB0102] text-xs sm:text-sm md:text-base sticky left-0 bg-[#FFF5F5] z-10 min-w-[180px]">
                                         Spesifikasi
                                     </th>
                                     <th
                                         v-for="car in selectedCars"
                                         :key="car.id"
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-bold text-gray-900 border-b-2 border-[#BB0102] min-w-[140px] sm:min-w-[160px] md:min-w-[180px]"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center font-bold text-gray-900 border-b-2 border-[#BB0102]"
+                                        :style="{ width: `${100 / selectedCars.length}%`, minWidth: '140px' }"
                                     >
                                         <div class="flex flex-col items-center">
                                             <img
@@ -257,18 +254,14 @@
                                                 :alt="car.name"
                                                 class="w-12 h-9 sm:w-14 sm:h-10 md:w-16 md:h-12 object-cover rounded mb-2"
                                             />
-                                            <span class="text-[10px] sm:text-xs md:text-sm">{{
-                                                car.name
-                                            }}</span>
+                                            <span class="text-[10px] sm:text-xs md:text-sm">{{ car.name }}</span>
                                         </div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-bold text-[#BB0102] bg-[#FFF5F5] text-xs sm:text-sm md:text-base sticky left-0 z-10"
-                                    >
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-bold text-[#BB0102] bg-[#FFF5F5] text-xs sm:text-sm md:text-base sticky left-0 z-10">
                                         Harga
                                     </td>
                                     <td
@@ -280,9 +273,7 @@
                                     </td>
                                 </tr>
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
-                                    >
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
                                         Tahun
                                     </td>
                                     <td
@@ -294,9 +285,7 @@
                                     </td>
                                 </tr>
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
-                                    >
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
                                         Merek
                                     </td>
                                     <td
@@ -308,9 +297,7 @@
                                     </td>
                                 </tr>
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
-                                    >
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
                                         Varian
                                     </td>
                                     <td
@@ -322,9 +309,7 @@
                                     </td>
                                 </tr>
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
-                                    >
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
                                         Kondisi
                                     </td>
                                     <td
@@ -345,9 +330,7 @@
                                     </td>
                                 </tr>
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
-                                    >
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
                                         Transmisi
                                     </td>
                                     <td
@@ -359,9 +342,7 @@
                                     </td>
                                 </tr>
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
-                                    >
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
                                         Bahan Bakar
                                     </td>
                                     <td
@@ -373,9 +354,7 @@
                                     </td>
                                 </tr>
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
-                                    >
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
                                         Kilometer
                                     </td>
                                     <td
@@ -387,9 +366,7 @@
                                     </td>
                                 </tr>
                                 <tr class="border-b hover:bg-gray-50">
-                                    <td
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
-                                    >
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
                                         Tipe
                                     </td>
                                     <td
@@ -400,10 +377,8 @@
                                         {{ car.tipe || "-" }}
                                     </td>
                                 </tr>
-                                <tr class="hover:bg-gray-50">
-                                    <td
-                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10"
-                                    >
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
                                         Sistem Penggerak
                                     </td>
                                     <td
@@ -412,6 +387,87 @@
                                         class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
                                     >
                                         {{ car.sistemPenggerak || "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
+                                        Warna
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
+                                    >
+                                        {{ car.warna || "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
+                                        Kepemilikan
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
+                                    >
+                                        {{ car.tanganKe ? "Tangan ke-" + car.tanganKe : "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
+                                        Masa Berlaku STNK
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
+                                    >
+                                        {{ car.stnkValid || "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
+                                        Kode Plat Wilayah Registrasi Kendaraan
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
+                                    >
+                                        {{ car.noPolisi || "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10">
+                                        Lokasi
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm md:text-base"
+                                    >
+                                        {{ car.domisili || "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 font-medium bg-gray-50 text-xs sm:text-sm md:text-base sticky left-0 z-10 align-top">
+                                        Deskripsi
+                                    </td>
+                                    <td
+                                        v-for="car in selectedCars"
+                                        :key="car.id"
+                                        class="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm md:text-base align-top"
+                                    >
+                                        <div 
+                                            class="text-gray-700 overflow-y-auto"
+                                            :style="{ 
+                                                maxHeight: '6rem',
+                                                minHeight: '6rem',
+                                                width: '100%'
+                                            }"
+                                        >
+                                            {{ car.deskripsi || "-" }}
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

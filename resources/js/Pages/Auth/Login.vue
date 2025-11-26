@@ -1,21 +1,25 @@
 <template>
-    <div class="flex justify-center items-center h-screen bg-gray-100">
+    <div class="flex justify-center items-center min-h-screen bg-gray-100 px-4 py-6 sm:px-6 lg:px-8">
         <div
-            class="bg-white p-8 rounded-3xl shadow-lg w-full max-w-md border-2 border-[#BB0102]"
+            class="bg-white p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-lg w-full max-w-sm sm:max-w-md border-2 border-[#BB0102]"
         >
             <!-- Logo -->
-            <div class="flex justify-center mb-4">
-                <img :src="logoUrl" alt="Madani Motor Logo" class="h-12" />
+            <div class="flex justify-center mb-4 sm:mb-6">
+                <img :src="logoUrl" alt="Madani Motor Logo" class="h-10 sm:h-12 md:h-14" />
             </div>
 
             <!-- Title -->
-            <h2 class="text-2xl font-bold text-center mb-2">Login Admin</h2>
-            <p class="text-center text-gray-600 mb-8">Nice to see you again</p>
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-1 sm:mb-2">
+                Login Admin
+            </h2>
+            <p class="text-sm sm:text-base text-center text-gray-600 mb-6 sm:mb-8">
+                Nice to see you again
+            </p>
 
             <!-- Error Message -->
             <div
                 v-if="errors.email || errors.password"
-                class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-4"
+                class="bg-red-50 border border-red-200 text-red-600 px-3 py-2 sm:px-4 sm:py-3 rounded-lg mb-4 text-sm"
             >
                 <p v-if="errors.email">{{ errors.email }}</p>
                 <p v-if="errors.password">{{ errors.password }}</p>
@@ -24,38 +28,40 @@
             <!-- Form -->
             <form @submit.prevent="submitLogin">
                 <!-- Email Input -->
-                <div class="mb-4">
+                <div class="mb-4 sm:mb-5">
                     <label
-                        class="block text-gray-700 text-sm font-semibold mb-2"
-                        >Login</label
+                        class="block text-gray-700 text-sm sm:text-base font-semibold mb-2"
                     >
+                        Login
+                    </label>
                     <input
                         v-model="form.email"
                         type="email"
-                        class="border border-gray-300 rounded-lg w-full py-3 px-4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#BB0102]"
+                        class="border border-gray-300 rounded-lg w-full py-2.5 sm:py-3 px-3 sm:px-4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#BB0102] text-sm sm:text-base"
                         placeholder="admin@madanimotor.com"
                         required
                     />
                 </div>
 
                 <!-- Password Input -->
-                <div class="mb-6">
+                <div class="mb-5 sm:mb-6">
                     <label
-                        class="block text-gray-700 text-sm font-semibold mb-2"
-                        >Password</label
+                        class="block text-gray-700 text-sm sm:text-base font-semibold mb-2"
                     >
+                        Password
+                    </label>
                     <div class="relative">
                         <input
                             v-model="form.password"
                             :type="showPassword ? 'text' : 'password'"
-                            class="border border-gray-300 rounded-lg w-full py-3 px-4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#BB0102]"
+                            class="border border-gray-300 rounded-lg w-full py-2.5 sm:py-3 px-3 sm:px-4 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#BB0102] text-sm sm:text-base pr-10 sm:pr-12"
                             placeholder="admin123"
                             required
                         />
                         <button
                             type="button"
                             @click="showPassword = !showPassword"
-                            class="absolute right-3 top-1/2 transform -translate-y-1/2"
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 focus:outline-none"
                         >
                             <svg
                                 v-if="!showPassword"
@@ -64,7 +70,7 @@
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="w-5 h-5 text-gray-600"
+                                class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600"
                             >
                                 <path
                                     stroke-linecap="round"
@@ -79,7 +85,7 @@
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="w-5 h-5 text-gray-600"
+                                class="w-4 h-4 sm:w-5 sm:h-5 text-gray-600"
                             >
                                 <path
                                     stroke-linecap="round"
@@ -100,7 +106,7 @@
                 <button
                     type="submit"
                     :disabled="processing"
-                    class="bg-[#BB0102] text-white w-full py-3 rounded-lg font-semibold hover:bg-[#9a0101] transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-3"
+                    class="bg-[#BB0102] text-white w-full py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-[#9a0101] transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-3"
                 >
                     <span v-if="processing">Loading...</span>
                     <span v-else>Log In</span>
@@ -109,7 +115,7 @@
                 <!-- Back Button -->
                 <Link
                     :href="route('home')"
-                    class="block text-center py-3 px-4 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                    class="block text-center py-2.5 sm:py-3 px-4 border border-gray-300 rounded-lg text-sm sm:text-base font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
                 >
                     Kembali ke Halaman Utama
                 </Link>

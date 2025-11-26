@@ -124,6 +124,8 @@ class HomeController extends Controller
             'name' => $mobil->nama_mobil,
             'year' => $mobil->tahun,
             'price' => $mobil->harga,
+            'merek' => $mobil->merek,
+            'varian' => $mobil->varian,
             'km' => $spek ? $spek->kilometer . ' km' : '0 km',
             'transmission' => $spek ? $spek->transmisi : 'N/A',
             'bahanBakar' => $spek ? $spek->bahan_bakar : 'N/A',
@@ -241,6 +243,11 @@ class HomeController extends Controller
                     'bahanBakar' => $spek ? $spek->bahan_bakar : null,
                     'tipe' => $spek ? $spek->tipe : null,
                     'sistemPenggerak' => $spek ? $spek->sistem_penggerak : null,
+                    'warna' => $spek ? $spek->warna : null,
+                    'tanganKe' => $spek ? $spek->tangan_ke : null,
+                    'stnkValid' => $spek ? $spek->masa_berlaku : null,
+                    'noPolisi' => $spek ? $spek->nomor_polisi : null,
+                    'domisili' => $spek ? $spek->plat_asal : null,
                     'image' => $foto && $foto->full_body
                         ? asset('storage/mobils/' . $foto->full_body)
                         : asset('images/placeholder-car.png'),

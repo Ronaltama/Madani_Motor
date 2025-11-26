@@ -347,8 +347,6 @@
                         @click="toggleSidebar"
                         class="flex items-center px-6 py-3 text-gray-800 hover:bg-gray-100 transition-colors"
                     >
-                        Beranda
-
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5 mr-4 text-gray-600"
@@ -364,7 +362,6 @@
                             />
                         </svg>
                         <span class="font-semibold">Home</span>
-
                     </Link>
 
                     <Link
@@ -431,35 +428,6 @@
                         </svg>
                         <span class="font-semibold">Bandingkan Mobil</span>
                     </Link>
-                </div>
-
-                <div class="absolute bottom-0 left-0 right-0 bg-gray-50">
-                    <div class="px-4">
-                        <div class="border-t border-gray-200"></div>
-                    </div>
-                    <div class="p-4">
-                        <Link
-                            :href="route('login')"
-                            @click="toggleSidebar"
-                            class="flex items-center justify-center px-6 py-3 bg-[#BB0102] text-white rounded-lg hover:bg-[#9a0101] transition-colors font-semibold"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 mr-2"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="1.5"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                                />
-                            </svg>
-                            Login Admin
-                        </Link>
-                    </div>
                 </div>
             </div>
         </transition>

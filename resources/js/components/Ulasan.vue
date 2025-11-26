@@ -13,7 +13,7 @@
       </div>
 
       <!-- Carousel Container -->
-      <div class="relative max-w-6xl mx-auto px-4 sm:px-8 md:px-12">
+      <div class="relative max-w-6xl mx-auto px-6 sm:px-8 md:px-12">
         <div class="relative pb-8 sm:pb-10 md:pb-12">
           <!-- Cards Container -->
           <div class="overflow-hidden py-4">
@@ -36,7 +36,7 @@
           <button 
             @click="prevSlide" 
             :disabled="currentIndex === 0"
-            class="absolute -left-2 sm:-left-4 lg:-left-12 top-1/2 -translate-y-1/2 bg-white hover:bg-[#BB0102] text-gray-800 hover:text-white rounded-full p-2 sm:p-3 shadow-lg transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed z-10"
+            class="absolute -left-4 sm:-left-6 md:-left-8 lg:-left-16 top-1/2 -translate-y-1/2 bg-white hover:bg-[#BB0102] text-gray-800 hover:text-white rounded-full p-2 sm:p-3 shadow-lg transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed z-10"
           >
             <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
@@ -46,7 +46,7 @@
           <button 
             @click="nextSlide" 
             :disabled="currentIndex >= maxIndex"
-            class="absolute -right-2 sm:-right-4 lg:-right-12 top-1/2 -translate-y-1/2 bg-white hover:bg-[#BB0102] text-gray-800 hover:text-white rounded-full p-2 sm:p-3 shadow-lg transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed z-10"
+            class="absolute -right-4 sm:-right-6 md:-right-8 lg:-right-16 top-1/2 -translate-y-1/2 bg-white hover:bg-[#BB0102] text-gray-800 hover:text-white rounded-full p-2 sm:p-3 shadow-lg transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed z-10"
           >
             <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -55,7 +55,7 @@
         </div>
 
         <!-- Dots Indicator -->
-        <div class="flex justify-center gap-1.5 sm:gap-2 mt-2">
+        <div class="flex justify-center gap-1.5 sm:gap-2 mt-4 sm:mt-2">
           <button 
             v-for="index in totalDots" 
             :key="index" 

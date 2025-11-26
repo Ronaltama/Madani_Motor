@@ -16,14 +16,15 @@
                     <div class="w-16 sm:w-20 md:w-24 h-1 bg-[#BB0102] mt-1 rounded-full"></div>
                 </div>
                 <div class="relative">
+                    <!-- TOMBOL KIRI REKOMENDASI - Desktop di kiri jauh, Mobile di kiri dekat -->
                     <button
                         v-show="scrollStates.rekomendasi.showLeft"
                         @click="scrollLeft('rekomendasi')"
-                        class="absolute -left-6 sm:-left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
+                        class="absolute lg:-left-16 xl:-left-20 -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:bg-[#990101] transition-all bg-[#BB0102] rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -51,14 +52,15 @@
                         </div>
                     </div>
 
+                    <!-- TOMBOL KANAN REKOMENDASI - Desktop di kanan jauh, Mobile di kanan dekat -->
                     <button
                         v-show="scrollStates.rekomendasi.showRight"
                         @click="scrollRight('rekomendasi')"
-                        class="absolute -right-6 sm:-right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
+                        class="absolute lg:-right-16 xl:-right-20 -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:bg-[#990101] transition-all bg-[#BB0102] rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-7 h-7 lg:w-9 lg:h-9 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -83,14 +85,15 @@
                     <div class="w-16 sm:w-20 md:w-24 h-1 bg-[#BB0102] mt-1 rounded-full"></div>
                 </div>
                 <div class="relative">
+                    <!-- TOMBOL KIRI TAHUN TERBARU - Desktop di kiri jauh, Mobile di kiri dekat -->
                     <button
                         v-show="scrollStates.tahunTerbaru.showLeft"
                         @click="scrollLeft('tahunTerbaru')"
-                        class="absolute -left-6 sm:-left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
+                        class="absolute lg:-left-16 xl:-left-20 -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:bg-[#990101] transition-all bg-[#BB0102] rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -118,14 +121,15 @@
                         </div>
                     </div>
 
+                    <!-- TOMBOL KANAN TAHUN TERBARU - Desktop di kanan jauh, Mobile di kanan dekat -->
                     <button
                         v-show="scrollStates.tahunTerbaru.showRight"
                         @click="scrollRight('tahunTerbaru')"
-                        class="absolute -right-6 sm:-right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
+                        class="absolute lg:-right-16 xl:-right-20 -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:bg-[#990101] transition-all bg-[#BB0102] rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -150,14 +154,15 @@
                     <div class="w-16 sm:w-20 md:w-24 h-1 bg-[#BB0102] mt-1 rounded-full"></div>
                 </div>
                 <div class="relative">
+                    <!-- TOMBOL KIRI HARGA TERMURAH - Desktop di kiri jauh, Mobile di kiri dekat -->
                     <button
                         v-show="scrollStates.hargaTermurah.showLeft"
                         @click="scrollLeft('hargaTermurah')"
-                        class="absolute -left-6 sm:-left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
+                        class="absolute lg:-left-16 xl:-left-20 -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:bg-[#990101] transition-all bg-[#BB0102] rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -185,14 +190,15 @@
                         </div>
                     </div>
 
+                    <!-- TOMBOL KANAN HARGA TERMURAH - Desktop di kanan jauh, Mobile di kanan dekat -->
                     <button
                         v-show="scrollStates.hargaTermurah.showRight"
                         @click="scrollRight('hargaTermurah')"
-                        class="absolute -right-6 sm:-right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:opacity-70 transition-all bg-white rounded-full shadow-md"
+                        class="absolute lg:-right-16 xl:-right-20 -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-10 w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center hover:bg-[#990101] transition-all bg-[#BB0102] rounded-full shadow-md"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black"
+                            class="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-white"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -293,12 +299,16 @@ function handleScroll(section) {
 
 function scrollLeft(section) {
     const el = refMap[section].value;
-    el?.scrollBy({ left: -300, behavior: "smooth" });
+    // Scroll lebih sedikit - sekitar 1 card
+    const scrollAmount = window.innerWidth < 1024 ? 200 : 280;
+    el?.scrollBy({ left: -scrollAmount, behavior: "smooth" });
 }
 
 function scrollRight(section) {
     const el = refMap[section].value;
-    el?.scrollBy({ left: 300, behavior: "smooth" });
+    // Scroll lebih sedikit - sekitar 1 card
+    const scrollAmount = window.innerWidth < 1024 ? 200 : 280;
+    el?.scrollBy({ left: scrollAmount, behavior: "smooth" });
 }
 
 onMounted(() => {

@@ -3,24 +3,22 @@
 
     <AdminLayout>
         <div class="max-w-3xl mx-auto">
-            <div class="bg-white rounded-lg shadow-sm p-6">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">
+            <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">
                     Tambah Ulasan
                 </h2>
 
                 <form @submit.prevent="submit">
                     <!-- Nama Mobil -->
                     <div class="mb-4">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
+                        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                             Nama Mobil <span class="text-red-600">*</span>
                         </label>
                         <input
                             v-model="form.nama_mobil"
                             type="text"
                             placeholder="Masukkan nama mobil yang dibeli customer"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            class="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-2 text-sm sm:text-base focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         />
                         <p class="text-xs text-gray-600 mt-1">
@@ -30,43 +28,37 @@
 
                     <!-- Nama Pelanggan -->
                     <div class="mb-4">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
+                        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                             Nama Pelanggan <span class="text-red-600">*</span>
                         </label>
                         <input
                             v-model="form.nama_pelanggan"
                             type="text"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            class="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-2 text-sm sm:text-base focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         />
                     </div>
 
                     <!-- Tanggal -->
                     <div class="mb-4">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                            Tanggal
+                        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
+                            Tanggal Pembelian
                         </label>
                         <input
                             v-model="form.tanggal"
                             type="date"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            class="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-2 text-sm sm:text-base focus:ring-2 focus:ring-red-500 focus:border-red-500"
                         />
                     </div>
 
                     <!-- Rating (single list) -->
                     <div class="mb-4">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
+                        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                             Rating <span class="text-red-600">*</span>
                         </label>
                         <select
                             v-model.number="form.rating"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            class="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-2 text-sm sm:text-base focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         >
                             <option value="">Pilih Rating</option>
@@ -78,27 +70,23 @@
 
                     <!-- Isi Review -->
                     <div class="mb-4">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
+                        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                             Isi Ulasan <span class="text-red-600">*</span>
                         </label>
                         <textarea
                             v-model="form.isi_review"
                             rows="5"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                            class="w-full border border-gray-300 rounded-lg px-3 sm:px-4 py-2 text-sm sm:text-base focus:ring-2 focus:ring-red-500 focus:border-red-500"
                             required
                         ></textarea>
                     </div>
 
                     <!-- Foto (Optional) -->
-                    <div class="mb-6">
-                        <label
-                            class="block text-sm font-medium text-gray-700 mb-2"
-                        >
+                    <div class="mb-4 sm:mb-6">
+                        <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                             Foto Pelanggan (Opsional)
                         </label>
-                        <div class="flex items-center gap-3">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                             <input
                                 type="file"
                                 @change="handleFileUpload"
@@ -109,16 +97,16 @@
                             <button
                                 type="button"
                                 @click="$refs.fileInput.click()"
-                                class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg transition-colors"
+                                class="bg-gray-700 hover:bg-gray-800 text-white px-3 sm:px-4 py-2 rounded-lg transition-colors text-sm sm:text-base w-full sm:w-auto"
                             >
                                 Upload Foto
                             </button>
                             <span
                                 v-if="form.foto_url"
-                                class="text-green-600 flex items-center gap-1"
+                                class="text-green-600 flex items-center gap-1 text-xs sm:text-sm"
                             >
                                 <svg
-                                    class="w-5 h-5"
+                                    class="w-4 h-4 sm:w-5 sm:h-5"
                                     fill="currentColor"
                                     viewBox="0 0 20 20"
                                 >
@@ -128,22 +116,22 @@
                                         clip-rule="evenodd"
                                     />
                                 </svg>
-                                {{ form.foto_url.name }}
+                                <span class="break-all">{{ form.foto_url.name }}</span>
                             </span>
                         </div>
                     </div>
 
                     <!-- Buttons -->
-                    <div class="flex gap-3">
+                    <div class="flex flex-col sm:flex-row gap-3">
                         <Link
                             :href="route('admin.reviews.index')"
-                            class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                            class="px-4 sm:px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-center text-sm sm:text-base"
                         >
                             Batal
                         </Link>
                         <button
                             type="submit"
-                            class="px-6 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg transition-colors"
+                            class="px-4 sm:px-6 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg transition-colors text-sm sm:text-base"
                             :disabled="form.processing"
                         >
                             {{ form.processing ? "Menyimpan..." : "Simpan" }}
@@ -159,8 +147,6 @@
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { ref } from "vue";
-
-// Tidak perlu props mobils lagi karena menggunakan nama_mobil langsung
 
 const form = useForm({
     nama_mobil: "",
