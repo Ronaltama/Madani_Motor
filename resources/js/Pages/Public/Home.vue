@@ -4,6 +4,7 @@
         <MobilPilihan :cars="cars" />
         <CompareBox />
         <Ulasan :ulasanList="reviews" />
+        <AboutUs />
     </PublicLayout>
 </template>
 
@@ -13,6 +14,7 @@ import ImageSlider from "@/components/ImageSlider.vue";
 import MobilPilihan from "@/components/MobilPilihan.vue";
 import CompareBox from "@/components/CompareBox.vue";
 import Ulasan from "@/components/Ulasan.vue";
+import AboutUs from "@/components/AboutUs.vue";
 
 defineProps({
     cars: {

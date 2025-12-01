@@ -41,7 +41,9 @@
                                 @blur="isFocused = false"
                                 @keyup.enter="handleSearch"
                                 :placeholder="
-                                    isFocused ? 'Ketik kata kunci dan enter' : ''
+                                    isFocused
+                                        ? 'Ketik kata kunci dan enter'
+                                        : ''
                                 "
                                 class="w-full pl-11 pr-4 py-3 rounded-full bg-gray-100 text-sm text-gray-600 placeholder-gray-500 focus:outline-none focus:ring-2 transition-all duration-300 font-semibold"
                                 :class="
@@ -53,7 +55,9 @@
 
                             <transition name="slide-text" mode="out-in">
                                 <span
-                                    v-if="!isFocused && searchQuery.length === 0"
+                                    v-if="
+                                        !isFocused && searchQuery.length === 0
+                                    "
                                     :key="currentPlaceholder"
                                     class="absolute left-11 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-semibold select-none pointer-events-none"
                                 >
@@ -143,9 +147,7 @@
                                             </svg>
                                         </div>
                                         <div>
-                                            <div
-                                                class="font-semibold text-sm"
-                                            >
+                                            <div class="font-semibold text-sm">
                                                 Login as Admin
                                             </div>
                                             <div class="text-xs text-gray-500">
@@ -294,7 +296,10 @@
                     />
                     <transition name="slide-text" mode="out-in">
                         <span
-                            v-if="!isFocusedMobile && searchQueryMobile.length === 0"
+                            v-if="
+                                !isFocusedMobile &&
+                                searchQueryMobile.length === 0
+                            "
                             :key="currentPlaceholder"
                             class="absolute left-10 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium select-none pointer-events-none"
                         >
@@ -336,7 +341,7 @@
                         </svg>
                     </button>
                 </div>
-                
+
                 <div class="px-4">
                     <div class="border-b border-gray-200"></div>
                 </div>
@@ -378,9 +383,21 @@
                             stroke-width="1.5"
                         >
                             <!-- Icon Mobil Tampak Samping -->
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16H9m10 0h1.5a1.5 1.5 0 001.5-1.5V12m0 0l-2-5.5H16m6 5.5H4m0 0V9a1 1 0 011-1h5l2-3h4l2 3h5"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.5 16H2a1 1 0 01-1-1v-2a1 1 0 011-1h1.5"/>
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"
+                            />
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M13 16H9m10 0h1.5a1.5 1.5 0 001.5-1.5V12m0 0l-2-5.5H16m6 5.5H4m0 0V9a1 1 0 011-1h5l2-3h4l2 3h5"
+                            />
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3.5 16H2a1 1 0 01-1-1v-2a1 1 0 011-1h1.5"
+                            />
                         </svg>
                         <span class="font-semibold">Beli Mobil</span>
                     </Link>

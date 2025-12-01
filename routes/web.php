@@ -67,4 +67,3 @@ Route::middleware(['auth'])
         Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     });
-
